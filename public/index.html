@@ -1,199 +1,294 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="css/styles.css">
-  <link rel="stylesheet" href="css/index.css">
-  <title>Gestión de Usuarios y Puntuaciones</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Gestión de Usuarios y Puntuaciones</title>
 </head>
+
 <body>
 
-  <!-- Barra de navegación -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-      <img src="https://picsum.photos/80/30" alt="Logo" class="logo"> <!-- Ajusta el tamaño como necesites -->
-      <span class="navbar-brand mb-0 h1">Nasalmi</span>
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="game.html">Game</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="rankings.html">Rankings</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="achievements.html">Achievements</a>
-      </li>
-      <li class="nav-item">
-          <a class="nav-link" href="#user.html">User Info</a>
-      </li>
-        <!-- Más elementos del menú aquí -->
-      </ul>
-      <div class="navbar-nav">
-        <a class="nav-link" href="#"><i class="fas fa-search"></i></a> <!-- Icono de búsqueda, usa FontAwesome -->
-        <a class="nav-link" href="#"><i class="fas fa-globe"></i></a> <!-- Icono del mundo, usa FontAwesome -->
-        <a class="nav-link" href="#"><i class="fas fa-user"></i></a> <!-- Icono de usuario, usa FontAwesome -->
-        <button class="btn btn-warning my-2 my-sm-0" type="submit">Download</button>
-      </div>
-    </div>
-  </nav>
-  
-
-  <header class="hero">
-    <div class="container-fluid">
-      <div class="row no-gutters">
-        <div class="col-md-6">
-          <div class="hero-content">
-            <h1 class="hero-title">NASALMI</h1>
-            <p class="hero-subtitle">A Whole New World</p>
-            <a href="#" class="btn btn-warning btn-lg">Explore</a>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="hero-image">
-            <img src="https://picsum.photos/600/400" alt="Hero Image">
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <section id="leaderboards" class="py-5">
-    <div class="container">
-      <h2 class="section-title">Last Rankings</h2>
-      <div class="ranking-list d-flex justify-content-between flex-wrap  align-items-start">
-        <!-- Ranking Item -->
-        
-        <div class="ranking-item text-center">
-          <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
-          <div class="user-info">
-          <h3 class="user-name">User 2</h3>
-          <div class="user-stats">
-            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
-            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
-          </div>
-        </div>
-        </div>
-        <div class="ranking-item text-center">
-          <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
-          <div class="user-info">
-          <h3 class="user-name">User 3</h3>
-          <div class="user-stats">
-            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
-            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
-          </div>
-        </div>
-        </div>
-        <div class="ranking-item text-center">
-          <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
-          <div class="user-info">
-          <h3 class="user-name">User 4</h3>
-          <div class="user-stats">
-            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
-            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
-          </div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  
-  
-
-  <!-- Sección acerca del juego -->
-  <section id="about-game" class="py-5">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6">
-          <h2 class="section-title">The Game</h2>
-          <p class="game-description">Aquí va una descripción emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego. Aquí va una descripción emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego. Aquí va una descripción emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego. Aquí va una descripción emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego. Aquí va una descripción emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego.
-          </p>
-          <!-- Más texto si es necesario -->
-        </div>
-        <div class="col-lg-6">
-          <div id="gameCarousel" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="game-card">
-                  <div class="card-img-overlay">
-                    <h3 class="game-feature-title">Característica 1</h3>
-                    <p class="game-feature-desc">Descripción de la característica 1 del juego.</p>
-                  </div>
-                  <img src="https://picsum.photos/200/300" alt="Game Feature" class="game-img">
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="game-card">
-                  <div class="card-img-overlay">
-                    <h3 class="game-feature-title">Característica 1</h3>
-                    <p class="game-feature-desc">Descripción de la característica 1 del juego.</p>
-                  </div>
-                  <img src="https://picsum.photos/200/300" alt="Game Feature" class="game-img">
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="game-card">
-                  <div class="card-img-overlay">
-                    <h3 class="game-feature-title">Característica 1</h3>
-                    <p class="game-feature-desc">Descripción de la característica 1 del juego.</p>
-                  </div>
-                  <img src="https://picsum.photos/200/300" alt="Game Feature" class="game-img">
-                </div>
-              </div>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">
+            <img src="https://picsum.photos/80/30" alt="Logo" class="logo">
+            <span class="navbar-brand mb-0 h1">Nasalmi</span>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="game.html">Game</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="rankings.html">Rankings</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="achievements.html">Achievements</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="user.html">User Info</a>
+                </li>
+            </ul>
+            <div class="navbar-nav">
+                <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
+                <a class="nav-link" href="#"><i class="fas fa-globe"></i></a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"><i
+                        class="fas fa-user"></i></a>
+                <a class="nav-link" href="#" id="logoutButton" style="display: none;"><i
+                        class="fas fa-sign-out-alt"></i></a>
+                <button class="btn btn-warning my-2 my-sm-0" type="submit">Download</button>
             </div>
-            <a class="carousel-control-prev" href="#gameCarousel" role="button" data-slide="prev">
-              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#gameCarousel" role="button" data-slide="next">
-              <span class="carousel-control-next-icon" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-            </a>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  
-  <footer id="contact" class="contact-section">
-    <div class="container text-center">
-      <h2>FOLLOW US</h2>
-      <div class="social-icons">
-        <!-- Primera fila de iconos -->
-        <div class="icon-row">
-          <div class="icon-wrapper"><i class="fab fa-facebook-f"></i></div>
-          <div class="icon-wrapper"><i class="fab fa-twitter"></i></div>
-          <div class="icon-wrapper"><i class="fab fa-discord"></i></div>
-          <div class="icon-wrapper"><i class="fab fa-instagram"></i></div>
-        </div>
-        <!-- Segunda fila de iconos -->
-        <div class="icon-row">
-          <div class="icon-wrapper"><i class="fab fa-twitch"></i></div>
-          <div class="icon-wrapper"><i class="fab fa-youtube"></i></div>
-          <div class="icon-wrapper"><i class="fab fa-tiktok"></i></div>
-        </div>
-      </div>
-      <div class="contact-links">
-        <button>DOWNLOAD</button>
-        <button>REGISTER</button>
-      </div>
-    </div>
-  </footer>
+    </nav>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="js/index.js"></script>
+    <!-- Portada -->
+    <header class="hero">
+        <div class="container-fluid">
+            <div class="row no-gutters">
+                <div class="col-md-6">
+                    <div class="hero-content">
+                        <h1 class="hero-title">NASALMI</h1>
+                        <p class="hero-subtitle">A Whole New World</p>
+                        <a href="#" class="btn btn-warning btn-lg">Explore</a>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="hero-image">
+                        <img src="https://picsum.photos/600/400" alt="Hero Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sección de rankings -->
+    <section id="leaderboards" class="py-5">
+        <div class="container">
+            <h2 class="section-title">Last Rankings</h2>
+            <div class="ranking-list d-flex justify-content-between flex-wrap  align-items-start">
+                <div class="ranking-item text-center">
+                    <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
+                    <div class="user-info">
+                        <h3 class="user-name">User 2</h3>
+                        <div class="user-stats">
+                            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
+                            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranking-item text-center">
+                    <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
+                    <div class="user-info">
+                        <h3 class="user-name">User 2</h3>
+                        <div class="user-stats">
+                            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
+                            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranking-item text-center">
+                    <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
+                    <div class="user-info">
+                        <h3 class="user-name">User 3</h3>
+                        <div class="user-stats">
+                            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
+                            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ranking-item text-center">
+                    <img src="https://picsum.photos/240/120" alt="User Avatar" class="user-avatar rounded">
+                    <div class="user-info">
+                        <h3 class="user-name">User 4</h3>
+                        <div class="user-stats">
+                            <span class="user-level"><i class="fas fa-chart-line"></i> 15</span>
+                            <span class="user-wave"><i class="fas fa-water"></i> 5</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Sección acerca del juego -->
+    <section id="about-game" class="py-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">The Game</h2>
+                    <p class="game-description">Aquí va una descripción emocionante y detallada del juego. Puedes hablar
+                        de las mecánicas, la historia, el mundo, y lo que hace único a tu juego. Aquí va una descripción
+                        emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo
+                        que hace único a tu juego. Aquí va una descripción emocionante y detallada del juego. Puedes
+                        hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego. Aquí va una
+                        descripción emocionante y detallada del juego. Puedes hablar de las mecánicas, la historia, el
+                        mundo, y lo que hace único a tu juego. Aquí va una descripción emocionante y detallada del
+                        juego. Puedes hablar de las mecánicas, la historia, el mundo, y lo que hace único a tu juego.
+                    </p>
+                </div>
+                <div class="col-lg-6">
+                    <div id="gameCarousel" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active">
+                                <div class="game-card">
+                                    <div class="card-img-overlay">
+                                        <h3 class="game-feature-title">Característica 1</h3>
+                                        <p class="game-feature-desc">Descripción de la característica 1 del juego.</p>
+                                    </div>
+                                    <img src="https://picsum.photos/200/300" alt="Game Feature" class="game-img">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="game-card">
+                                    <div class="card-img-overlay">
+                                        <h3 class="game-feature-title">Característica 1</h3>
+                                        <p class="game-feature-desc">Descripción de la característica 1 del juego.</p>
+                                    </div>
+                                    <img src="https://picsum.photos/200/300" alt="Game Feature" class="game-img">
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <div class="game-card">
+                                    <div class="card-img-overlay">
+                                        <h3 class="game-feature-title">Característica 1</h3>
+                                        <p class="game-feature-desc">Descripción de la característica 1 del juego.</p>
+                                    </div>
+                                    <img src="https://picsum.photos/200/300" alt="Game Feature" class="game-img">
+                                </div>
+                            </div>
+                        </div>
+                        <a class="carousel-control-prev" href="#gameCarousel" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#gameCarousel" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Redes -->
+    <footer id="contact" class="contact-section">
+        <div class="container text-center">
+            <h2>FOLLOW US</h2>
+            <div class="social-icons">
+                <!-- Primera fila de iconos -->
+                <div class="icon-row">
+                    <div class="icon-wrapper"><i class="fab fa-facebook-f"></i></div>
+                    <div class="icon-wrapper"><i class="fab fa-twitter"></i></div>
+                    <div class="icon-wrapper"><i class="fab fa-discord"></i></div>
+                    <div class="icon-wrapper"><i class="fab fa-instagram"></i></div>
+                </div>
+                <!-- Segunda fila de iconos -->
+                <div class="icon-row">
+                    <div class="icon-wrapper"><i class="fab fa-twitch"></i></div>
+                    <div class="icon-wrapper"><i class="fab fa-youtube"></i></div>
+                    <div class="icon-wrapper"><i class="fab fa-tiktok"></i></div>
+                </div>
+            </div>
+            <div class="contact-links">
+                <button>DOWNLOAD</button>
+                <button>REGISTER</button>
+            </div>
+        </div>
+    </footer>
+
+    
+    <!-- Modales de inicio de sesión y registro -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-body">
+                    <div class="login-container">
+                        <div class="login-form bg-dark text-white p-4">
+                            <h3 class="text-center mb-4">Sign in to your Epic Games Account</h3>
+                            <form>
+                                <div class="form-group">
+                                    <label for="email">Email Address</label>
+                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" placeholder="Password">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">SIGN IN</button>
+                                    <p class="mt-3"><a href="#" class="text-white-50">Forgot Your Password?</a></p>
+                                    <p class="mt-3 text-center"><a href="#" class="text-white-50" data-toggle="modal"
+                                            data-target="#registerModal" data-dismiss="modal">Register</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal de registro -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-body">
+                    <div class="register-container">
+                        <div class="register-form bg-dark text-white p-4">
+                            <h3 class="text-center mb-4">Create your Epic Games Account</h3>
+                            <form>
+                                <div class="form-group">
+                                    <label for="registerEmail">Email Address</label>
+                                    <input type="email" class="form-control" id="registerEmail"
+                                        placeholder="Enter email">
+                                </div>
+                                <div class="form-group d-none" id="usernameGroup">
+                                    <label for="username">Username</label>
+                                    <input type="text" class="form-control" id="username"
+                                        placeholder="Choose a username">
+                                </div>
+                                <div class="form-group d-none" id="passwordGroup">
+                                    <label for="registerPassword">Password</label>
+                                    <input type="password" class="form-control" id="registerPassword"
+                                        placeholder="Enter password">
+                                </div>
+                                <div class="form-group d-none" id="confirmPasswordGroup">
+                                    <label for="confirmPassword">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword"
+                                        placeholder="Confirm your password">
+                                </div>
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">REGISTER</button>
+                                    <p class="mt-3"><a href="#" class="text-white-50" data-toggle="modal"
+                                            data-target="#loginModal" data-dismiss="modal">Back to Sign In</a></p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="js/index.js"></script>
 </body>
+
 </html>

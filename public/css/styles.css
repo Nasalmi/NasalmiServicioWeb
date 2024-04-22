@@ -1,34 +1,35 @@
-
-
 .navbar-brand img {
     max-height: 30px;
 }
+
 .bg-dark {
-    background-color: #111 !important; /* Fondo negro */
-  }
-  
+    background-color: #111 !important;
+    /* Fondo negro */
+}
+
 .navbar .navbar-icons {
     display: flex;
     align-items: center;
 }
-  
+
 .navbar .navbar-icons a.nav-icon {
-    margin-right: 50px; 
+    margin-right: 50px;
 }
-  
+
 .navbar .navbar-icons img {
-    max-height: 20px; 
+    max-height: 20px;
 }
-  
+
 .navbar .btn-warning {
-    color: #130D17; 
+    color: #130D17;
 }
-.navbar{
-    color: #130D17 !important; 
+
+.navbar {
+    color: #130D17 !important;
 }
 
 .navbar .navbar-nav a.nav-link {
-    margin-right: 30px; 
+    margin-right: 30px;
 }
 
 .navbar .navbar-nav a.nav-link:last-child {
@@ -37,25 +38,25 @@
 
 .logo {
     height: auto;
-    width: 80px; 
+    width: 80px;
 }
 
 .navbar-brand .h1 {
     display: inline;
     font-size: 1.5em;
-    margin-left: 50px; 
+    margin-left: 50px;
 }
 
-  
+
 #login-signup .container {
     max-width: 600px;
 }
+
 .container-fluid {
-    padding: 0; 
+    padding: 0;
 }
 
 .navbar-dark .navbar-nav .nav-item.active .nav-link {
-    background-color: #444; 
+    background-color: #444;
     border-radius: 10px;
 }
-

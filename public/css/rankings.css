@@ -1,42 +1,40 @@
 .custom-select {
-    background-color: #333; /* Fondo más claro que el negro */
-    border-color: #555; /* Bordes más claros */
-    color: #fff; /* Texto blanco */
-  }
-  
-  
-  .list-group-item.bg-secondary {
-    background-color: #333 !important; /* Fondo más claro para los elementos de la lista */
-    border-color: #444; /* Bordes para separar los elementos de la lista */
-  }
-  
-  .list-group-item.bg-secondary:hover {
-    background-color: #333 !important; /* Fondo al pasar el ratón */
-  }
-  
-.container{
+    background-color: #333;
+    border-color: #555;
+    color: #fff;
+}
+
+.list-group-item.bg-secondary {
+    background-color: #333 !important;
+    border-color: #444;
+}
+
+.list-group-item.bg-secondary:hover {
+    background-color: #333 !important;
+}
+
+.container {
     background-color: #111;
 }
-body{
+
+body {
     background-color: #111;
 }
 
 .list-group-item {
-    background-color: #333; /* Fondo oscuro */
-    border-color: #444; /* Color del borde */
-  }
-  
-  .list-group-item .left-side {
-    flex-grow: 1; /* Asegura que el lado izquierdo ocupe todo el espacio disponible */
-  }
-  
-  .list-group-item .score {
-    flex-shrink: 0; /* Asegura que la puntuación no se encoja */
-  }
-  .left-side img{
+    background-color: #333;
+    border-color: #444;
+}
+
+.list-group-item .left-side {
+    flex-grow: 1;
+}
+
+.list-group-item .score {
+    flex-shrink: 0;
+}
+
+.left-side img {
     margin-right: 15px;
     margin-left: 15px;
-  }
-  /* Añade estilos adicionales según sea necesario */
-  
-  
+}
