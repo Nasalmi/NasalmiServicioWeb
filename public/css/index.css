@@ -1,0 +1,280 @@
+.hero {
+    background-color: #101014;
+  }
+  
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+    mask-image: radial-gradient(rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+   -webkit-mask-image: radial-gradient(rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+  }
+  
+  .hero-image img {
+    width: 100%;
+    z-index: -1;
+
+  }
+
+  
+  .hero-image::before {
+    content: '';
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    right: 5%;
+    bottom: 5%;
+    
+  }
+  
+  .hero-content {
+    text-align: center;
+    padding: 19%;
+  }
+  
+  .hero-title {
+    font-size: 100px; /* Tamaño más grande */
+    font-weight: bold; /* Peso de la fuente más gordo */
+    margin-bottom: 20px;
+    color: #fff;
+    font-family: 'Playfair Display', serif; /* Aplicar la fuente Playfair Display */
+  }
+  
+  .hero-subtitle {
+    font-size: 24px;
+    color: #fff;
+  }
+  
+  .hero-content .btn {
+    padding: 15px 40px; /* Aumentar el padding para hacer el botón más grande */
+    border-radius: 20px; /* Redondear los bordes del botón */
+    font-size: 24px; /* Aumentar el tamaño del texto del botón */
+    font-weight: bolder;
+    width: auto; /* Hacer que el botón sea lo suficientemente ancho para el texto */
+  }
+  
+  .hero-content .btn:hover {
+    background-color: #FFC107; /* Color de fondo del botón al pasar el ratón */
+    border-color: #FFC107; /* Color del borde del botón al pasar el ratón */
+  }
+  #about-game {
+    background-color: #101014;
+  }
+  
+  #about-game .section-title {
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 50px; /* Tamaño más grande */
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    color: #fff;
+}
+
+#about-game .game-description {
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 20px;
+    font-size: 20px;
+    line-height: 1.5;
+}
+
+#about-game .carousel {
+    margin-top: 20px;
+}
+
+
+
+#about-game .carousel-item {
+    text-align: center;
+}
+
+@media (max-width: 991.98px) {
+    #about-game .carousel {
+        margin-top: 0;
+    }
+}
+
+#about-game .game-card {
+    width: 75%; /* Tamaño reducido al 75% */
+    margin: 0 auto; /* Centrar la tarjeta si es más pequeña que el contenedor */
+    border: 5px solid #fff; /* Asegurar que el borde es blanco */
+    position: relative; /* Posición relativa para posicionar la sobrecapa */
+    overflow: hidden; /* Asegurar que la sobrecapa no sobrepase la imagen */
+  }
+  
+  #about-game .game-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0; /* Las tarjetas tienen bordes cuadrados */
+  }
+  
+  #about-game .card-img-overlay {
+    position: absolute;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); /* Fondo oscuro para el texto */
+    color: #fff;
+    width: 100%;
+    padding: 10px 20px; /* Espaciado interior para el texto */
+    text-align: center; /* Centrar el texto */
+    transform: translateY(100%); /* Esconder el texto inicialmente */
+    transition: transform 0.3s ease; /* Animación suave para el texto */
+  }
+  
+  #about-game .game-card:hover .card-img-overlay {
+    transform: translateY(80%); /* Mostrar texto al pasar el ratón */
+  }
+  
+  #about-game .game-feature-title {
+    font-weight: bold;
+    margin: 0; /* Eliminar margen por defecto */
+  }
+  
+  #about-game .game-feature-desc {
+    font-size: 0.9rem;
+    margin: 5px 0 0; /* Espaciado arriba del texto */
+  }
+  
+  .contact-section {
+    background-image: url('https://picsum.photos/1920/1080'); /* Cambia esto por la URL de tu imagen de fondo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    opacity: 0.9; /* Ajusta para el nivel de transparencia deseado */
+    color: white;
+    padding: 50px 0;
+  }
+  
+  .contact-section h2 {
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+  }
+  
+  .social-icons {
+    --hexagon-size: 60px; /* Tamaño de los hexágonos */
+    --hexagon-color: #8a2be2; /* Color base para los hexágonos */
+  }
+  
+  .icon-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 0px; /* Ajustar según el tamaño de tus hexágonos */
+  }
+  
+  .icon-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--hexagon-size);
+    height: calc(var(--hexagon-size) * 0.57735 * 2); /* Altura del hexágono basada en la geometría del mismo */
+    background: rgba(138, 43, 226, 0.5); /* Color semitransparente */
+    border: 3px solid var(--hexagon-color);
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    position: relative;
+    z-index: 1;
+  }
+  
+  .icon-wrapper i {
+    color: white;
+    font-size: 24px;
+  }
+
+  .contact-links {
+    margin-top: 30px;
+  }
+  
+  .contact-links button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+  }
+  
+  .contact-links button:hover {
+    background: white;
+    color: black;
+  }
+  #leaderboards {
+    background-color: #111;
+
+  }
+  
+  #leaderboards .section-title {
+    text-align: left;
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    font-weight: bold;
+    color: #fff;
+    font-weight: bold;
+    font-style: italic;
+  }
+  
+  .ranking-list .ranking-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-right: 20px; /* Espacio entre los elementos */
+    margin-bottom: 20px;
+  }
+  
+  .user-avatar {
+    width: 240px; /* El doble de ancho que de alto */
+    height: 120px;
+    border-radius: 10px; /* Bordes redondeados */
+    object-fit: cover; /* Asegura que la imagen cubra el espacio */
+    margin-bottom: 10px;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    
+  }
+  
+  .user-name {
+    margin: 0;
+    font-size: 22px; /* Ajusta el tamaño del texto */
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+  }
+  
+  .user-stats {
+    display: flex;
+    font-size: 16px;
+    color: #fff;
+  }
+  
+  .user-level {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+    font-family: 'Playfair Display', serif;
+    color: #fff;
+  }
+  
+  .user-level i,
+  .user-wave i {
+    margin-right: 5px;
+  }
+  
+  .user-wave {
+    display: flex;
+    align-items: center;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  /* Para dispositivos más pequeños, asegúrate de que los elementos se ajusten correctamente */
+  @media (max-width: 768px) {
+    .ranking-list {
+      justify-content: center;
+    }
+  
+    .ranking-item {
+      width: 100%;
+    }
+  }
+  

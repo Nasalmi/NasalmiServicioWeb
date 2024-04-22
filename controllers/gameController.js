@@ -22,30 +22,35 @@ async function checkAndAddAchievements(userId, gameData) {
 		if (achievement.name == "Cazador de Zombies" && gameData.monsters_killed['zombies'] >= 50) {
 			if (!user.achievements.includes(achievement._id)) {
 				newAchievements.push(achievement._id);
+				console.log("logro Zombies");
 			}
 		}
 		
 		if (achievement.name == "Primerizo" && gameData.level >= 1) {
 			if (!user.achievements.includes(achievement._id)) {
 				newAchievements.push(achievement._id);
+				console.log("Logro Primerizo");
 			}
 		}
 
 		if (achievement.nam == "Maestro del Juego" && gameData.level >= 10) {
 			if (!user.achievements.includes(achievement._id)) {
 				newAchievements.push(achievement._id);
+				console.log("Logro Maestro");
 			}
 		}
 
 		if (achievement.name == "Acaparador de Oro" && gameData.total_gold >= 1000) {
 			if (!user.achievements.includes(achievement._id)) {
 				newAchievements.push(achievement._id);
+				console.log("Logro Oro");
 			}
 		}
 
 		if (achievement.name == "Destructor de Fantasmas" && gameData.monsters_killed['ghosts'] >= 30) {
 			if (!user.achievements.includes(achievement._id)) {
 				newAchievements.push(achievement._id);
+				console.log("Logro Fantasmas");
 			}
 		}
 	});
@@ -56,6 +61,34 @@ async function checkAndAddAchievements(userId, gameData) {
 		});
 	}
 }
+
+exports.createGameUser = async (req, res) => {
+    const { user_id, level, wave, time_spent, monsters_killed, total_gold, date } = req.body;
+
+    try {
+        const user = await User.findById(user_id);
+        if (!user) {
+            return res.status(404).send({ message: "Usuario no encontrado." });
+        }
+
+        const newGame = new Game({
+            user_id,
+            level,
+            wave,
+            time_spent,
+            monsters_killed,
+            total_gold,
+            date
+        });
+
+        const savedGame = await newGame.save();
+	await checkAndAddAchievements(savedGame.user_id, savedGame);
+        return res.status(201).send({ message: "Partida creada con éxito.", gameId: savedGame._id });
+    } catch (error) {
+        console.error("Error al crear la partida:", error);
+        return res.status(500).send({ message: "Error al procesar la solicitud de creación de partida.", error });
+    }
+};
 
 exports.findGamesByUser = async (req, res) => {
 	try {

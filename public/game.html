@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/game.css">
+  <title>Gestión de Usuarios y Puntuaciones</title>
+</head>
+<body>
+
+  <!-- Barra de navegación -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+      <img src="https://picsum.photos/80/30" alt="Logo" class="logo"> <!-- Ajusta el tamaño como necesites -->
+      <span class="navbar-brand mb-0 h1">Nasalmi</span>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="index.html">Home</a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="game.html">Game</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="rankings.html">Rankings</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="achievements.html">Achievements</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="user.html">User Info</a>
+      </li>
+        <!-- Más elementos del menú aquí -->
+      </ul>
+      <div class="navbar-nav">
+        <a class="nav-link" href="#"><i class="fas fa-search"></i></a> <!-- Icono de búsqueda, usa FontAwesome -->
+        <a class="nav-link" href="#"><i class="fas fa-globe"></i></a> <!-- Icono del mundo, usa FontAwesome -->
+        <a class="nav-link" href="#"><i class="fas fa-user"></i></a> <!-- Icono de usuario, usa FontAwesome -->
+        <button class="btn btn-warning my-2 my-sm-0" type="submit">Download</button>
+      </div>
+    </div>
+  </nav>
+  <section id="seccion1" class="full-screen-section">
+    <div class="container text-center">
+        <h1 class="welcome-title">LEARN THE BASICS</h1>
+        <p class="welcome-description">Hay mucho que aprender sobre Nasalmi, así que vamos a empezar por los fundamentos. Consulta la guía de más abajo para familiarizarte con el modo de juego más popular.</p>
+        <button class="welcome-button btnSeccion1">¡LETS GO!</button>
+      </div>      
+  </section>
+  
+  <!-- Añadir esqueletos similares para las demás secciones: character, items, money, boss -->
+  <section id="seccion2" class="game-section d-flex align-items-center">
+    <div class="containerSeccion">
+      <div class="row justify-content-top">
+        <div class="col-lg-1"> </div>
+        <div class="col-lg-3 text-section">
+          <h2 class="section-title">SURVIVE THE WAVES</h2>
+          <p class="section-description">10 waves await you in each level full of monsters that will make you sweat.</p>
+          <div class="info-card">
+            <h3 class="card-title">THE BUTTON</h3>
+            <p class="card-description">Press the button to start the waves. But be careful, this will close all the doors, and you will lose life if you want to open them again..</p>
+            <div class="card-buttons">
+              <button class="btn btn-prev btnFlecha"><i class="fas fa-arrow-left"></i></button>
+              <button class="btn btn-next btnFlecha"><i class="fas fa-arrow-right"></i></button>
+              <button class="welcome-button btnSeccion2">¡NEXT!</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 image-section">
+          <div class="image-container">
+            <img src="https://picsum.photos/900/900" alt="Imagen descriptiva" class="section-image active">
+            <img src="https://picsum.photos/id/237/900/900" alt="Imagen descriptiva" class="section-image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  
+
+  <section id="seccion3" class="game-section d-flex align-items-center">
+    <div class="containerSeccion">
+      <div class="row justify-content-top">
+        <div class="col-lg-1"> </div>
+        <div class="col-lg-6 image-section">
+            <div class="image-container">
+              <img src="https://picsum.photos/900/900" alt="Imagen descriptiva" class="section-image active">
+              <img src="https://picsum.photos/id/237/900/900" alt="Imagen descriptiva" class="section-image">
+            </div>
+          </div>
+        <div class="col-lg-3 text-section">
+          <h2 class="section-title">SURVIVE THE WAVES</h2>
+          <p class="section-description">10 waves await you in each level full of monsters that will make you sweat.</p>
+          <div class="info-card">
+            <h3 class="card-title">THE BUTTON</h3>
+            <p class="card-description">Press the button to start the waves. But be careful, this will close all the doors, and you will lose life if you want to open them again..</p>
+            <div class="card-buttons">
+              <button class="btn btn-prev btnFlecha"><i class="fas fa-arrow-left"></i></button>
+              <button class="btn btn-next btnFlecha"><i class="fas fa-arrow-right"></i></button>
+              <button class="welcome-button btnSeccion3">¡NEXT!</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+
+  <section id="seccion4" class="game-section d-flex align-items-center">
+    <div class="containerSeccion">
+      <div class="row justify-content-top">
+        <div class="col-lg-1"> </div>
+        <div class="col-lg-3 text-section">
+          <h2 class="section-title">SURVIVE THE WAVES</h2>
+          <p class="section-description">10 waves await you in each level full of monsters that will make you sweat.</p>
+          <div class="info-card">
+            <h3 class="card-title">THE BUTTON</h3>
+            <p class="card-description">Press the button to start the waves. But be careful, this will close all the doors, and you will lose life if you want to open them again..</p>
+            <div class="card-buttons">
+              <button class="btn btn-prev btnFlecha"><i class="fas fa-arrow-left"></i></button>
+              <button class="btn btn-next btnFlecha"><i class="fas fa-arrow-right"></i></button>
+              <button class="welcome-button btnSeccion4">¡NEXT!</button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 image-section">
+          <div class="image-container">
+            <img src="https://picsum.photos/900/900" alt="Imagen descriptiva" class="section-image active">
+            <img src="https://picsum.photos/id/237/900/900" alt="Imagen descriptiva" class="section-image">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <section id="seccion5" class="game-section d-flex align-items-center">
+    <div class="containerSeccion">
+      <div class="row justify-content-top">
+        <div class="col-lg-1"> </div>
+        <div class="col-lg-6 image-section">
+            <div class="image-container">
+              <img src="https://picsum.photos/900/900" alt="Imagen descriptiva" class="section-image active">
+              <img src="https://picsum.photos/id/237/900/900" alt="Imagen descriptiva" class="section-image">
+            </div>
+          </div>
+        <div class="col-lg-3 text-section">
+          <h2 class="section-title">SURVIVE THE WAVES</h2>
+          <p class="section-description">10 waves await you in each level full of monsters that will make you sweat.</p>
+          <div class="info-card">
+            <h3 class="card-title">THE BUTTON</h3>
+            <p class="card-description">Press the button to start the waves. But be careful, this will close all the doors, and you will lose life if you want to open them again..</p>
+            <div class="card-buttons">
+              <button class="btn btn-prev btnFlecha"><i class="fas fa-arrow-left"></i></button>
+              <button class="btn btn-next btnFlecha"><i class="fas fa-arrow-right"></i></button>
+              <button class="welcome-button btnSeccion5">¡NEXT!</button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </section>
+  <!-- Añadir esqueletos similares para las demás secciones: character, items, money, boss -->
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html>

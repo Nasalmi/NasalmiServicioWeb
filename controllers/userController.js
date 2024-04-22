@@ -25,6 +25,27 @@ exports.createUser = async (req, res) => {
     }
 };
 
+exports.loginUser = async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        const user = await User.findOne({ username });
+        if (!user) {
+            return res.status(404).send({ message: "Usuario no encontrado." });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).send({ message: "Contraseña incorrecta." });
+        }
+
+        return res.status(200).send({ message: "Inicio de sesión exitoso.", userId: user._id });
+    } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        return res.status(500).send({ message: "Error al procesar la solicitud de inicio de sesión.", error });
+    }
+};
+
 exports.findAllUsers = async (req, res) => {
     try {
         const users = await User.find();

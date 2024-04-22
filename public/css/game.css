@@ -1,0 +1,174 @@
+.full-screen-section {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 1;
+    transition: opacity 0.5s;
+    background-image: url('https://picsum.photos/1600/600'); /* Reemplaza con tu imagen de fondo */
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .hidden {
+    opacity: 0;
+    visibility: hidden; /* Esto es opcional, dependiendo de si quieres que la sección ocupe espacio cuando no se ve */
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  #seccion1 {
+    /* Propiedades de fondo que ya has establecido */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinea el contenido al inicio del eje principal */
+    padding-top: 10vh; /* Espacio en la parte superior, ajusta al valor que prefieras */
+    text-align: center; /* Centrado de texto */
+  }
+  
+  .welcome-title {
+    font-size: 100px; /* Tamaño del título */
+    font-weight: bolder;
+    color: #fff; /* Color de texto de la imagen */
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .welcome-description {
+    font-size: 1rem; /* Tamaño de la descripción */
+    color: #dcdcdc; /* Color de texto más claro que en la imagen */
+    margin-bottom: 24px;
+    font-family: 'Playfair Display', serif;
+  }
+  
+  .welcome-button {
+    background-color: #ffd700; /* Color de fondo del botón */
+    border: none;
+    color: #130D17; /* Color de texto del botón */
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 2rem; /* Bordes redondeados del botón */
+    transition: background-color 0.3s; /* Transición suave para efecto hover */
+  }
+  
+  .welcome-button:hover {
+    background-color: #e6c300; /* Color al pasar el mouse por encima */
+  }
+
+  .game-section {
+    color: #fff; /* Establece el color de texto */
+    background-color: #000; /* Fondo oscuro, ajustar según tu diseño */
+    padding: 50px 0; /* Espacio superior e inferior */
+  }
+  
+  .section-title {
+    font-size: 2rem; /* Tamaño del título */
+    margin-bottom: 20px; /* Espacio después del título */
+  }
+  
+  .section-description {
+    font-size: 1rem; /* Tamaño del texto de descripción */
+    margin-bottom: 30px; /* Espacio después de la descripción */
+  }
+  
+  .info-card {
+    background: rgba(255, 255, 255, 0.1); /* Fondo semitransparente */
+    padding: 20px;
+    border-radius: 10px; /* Bordes redondeados de la tarjeta */
+    margin-bottom: 20px; /* Espacio después de la tarjeta */
+  }
+  
+  .card-title {
+    font-size: 1.5rem; /* Tamaño del subtítulo */
+    margin-bottom: 15px; /* Espacio después del subtítulo */
+  }
+  
+  .card-description {
+    font-size: 1rem; /* Tamaño del texto de la tarjeta */
+    margin-bottom: 15px; /* Espacio después del texto de la tarjeta */
+  }
+  
+  .card-buttons {
+    text-align: center; /* Centrar los botones */
+  }
+  
+  .btnFlecha {
+    background: #205081; /* Color de fondo de los botones */
+    color: #fff;
+    border: none;
+    padding: 10px 15px; /* Espaciado interior de los botones */
+    margin: 0 10px; /* Espacio entre botones */
+    font-size: 1rem;
+    border-radius: 5px; /* Bordes redondeados de los botones */
+  }
+  
+  .btn-prev i, .btn-next i {
+    font-size: 1rem; /* Tamaño de los iconos de flechas */
+  }
+  
+  .section-image {
+    width: 100%;
+    height: auto;
+    display: block; /* Asegurar que la imagen ocupa todo el espacio horizontal disponible */
+  }
+  .game-section {
+    min-height: 100vh; /* Asegura que la sección tenga al menos la altura de la ventana del navegador */
+    display: flex;
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido, si es necesario */
+    color: #fff; /* Color de texto */
+    /* Tus otros estilos aquí */
+  }
+  
+  .text-section,
+  .image-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  /* Para mantener las relaciones de tamaño y centrar con márgenes automáticos */
+  .containerSeccion {
+    max-width: 85% !important; /* Ajusta al ancho máximo deseado */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+  /* Centrar la imagen dentro de su columna si es más pequeña que el espacio disponible */
+  .image-section .image-container {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente si es necesario */
+  }
+  
+  .image-container img {
+    max-width: 100%; /* Asegúrate de que la imagen no sobrepase su contenedor */
+    height: auto; /* Mantiene la relación de aspecto */
+    mask-image: radial-gradient(rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+    -webkit-mask-image: radial-gradient(rgba(0,0,0,1) 0%,rgba(0,0,0,0) 100%);
+  }
+
+  .section-image {
+    display: none; /* Oculta inicialmente las imágenes */
+  }
+  
+  .section-image.active {
+    display: block; /* Solo la imagen activa se muestra */
+  }
+  
+  
+  @media (max-width: 1200px) {
+    /* Ajustes para pantallas más pequeñas */
+    .text-section, .image-section {
+      padding: 0 15px; /* Añade padding en pantallas pequeñas */
+    }
+  }
+  
+  
+  

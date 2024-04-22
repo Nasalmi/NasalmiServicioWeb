@@ -10,6 +10,7 @@ router.get('/users', userController.findAllUsers);
 router.get('/users/search', userController.searchUsers);
 router.get('/users/:id', userController.findUserById);
 router.put('/users/:id', userController.updateUser);
+router.post('/login', userController.loginUser);
 router.delete('/users/:id', userController.deleteUser);
 
 
@@ -18,6 +19,7 @@ router.post('/games', gameController.createGame);
 router.get('/games/user/:userId', gameController.findGamesByUser);
 router.get('/games/recent', gameController.getRecentGames);
 router.get('/games/stats', gameController.getGameStats);
+router.post('/gameUser', gameController.createGameUser);
 router.get('/games/:id', gameController.getGameDetails);
 router.delete('/games/:id', gameController.deleteGame);
 

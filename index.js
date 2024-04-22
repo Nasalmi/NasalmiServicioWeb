@@ -26,3 +26,5 @@ app.listen(8080, () => {
 app.get('/', (req, res) => {
   res.send('Hola Bienvenidos al Servicio Web de Nasalmi');
 });
+
+app.use(express.static('public')); // Asume que 'public' es la carpeta donde está tu index.html y otros archivos estáticos.
