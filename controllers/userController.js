@@ -2,6 +2,9 @@ const User = require('../schemas/userSchema');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
+const cookieParser = require('cookie-parser');
+const jwt = require('jsonwebtoken');
+
 
 exports.createUser = async (req, res) => {
     try {
@@ -38,6 +41,12 @@ exports.loginUser = async (req, res) => {
         if (!isMatch) {
             return res.status(401).send({ message: "Contraseña incorrecta." });
         }
+	
+	        // Crear token JWT
+        const token = jwt.sign({ _id: user._id }, 'tu_secreto_jwt_aqui', { expiresIn: '24h' });
+
+        // Guardar el userID en la sesión
+        req.session.userId = user._id;
 
         return res.status(200).send({ message: "Inicio de sesión exitoso.", userId: user._id });
     } catch (error) {
@@ -45,6 +54,18 @@ exports.loginUser = async (req, res) => {
         return res.status(500).send({ message: "Error al procesar la solicitud de inicio de sesión.", error });
     }
 };
+
+// userController.js
+exports.isLoggedIn = (req, res, next) => {
+    if (!req.session.userId) {
+        return res.status(401).send('No autenticado');
+    }
+    next();
+};
+
+
+
+
 
 exports.findAllUsers = async (req, res) => {
     try {
@@ -57,7 +78,7 @@ exports.findAllUsers = async (req, res) => {
 
 exports.findUserById = async (req, res) => {
     const userId = req.params.id;
-    console.log("UserID:", userId); // Para depuración
+    
     try {
         const user = await User.aggregate([
             { $match: { _id: new mongoose.Types.ObjectId(userId) } },

@@ -24,7 +24,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
@@ -36,7 +36,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="achievements.html">Achievements</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="user.html">User Info</a>
                 </li>
             </ul>
@@ -57,7 +57,7 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Perfil de usuario -->
-                <div class="user-profile bg-dark text-light p-3 mb-3 d-flex align-items-center">
+                <div class="userInfo user-profile bg-dark text-light p-3 mb-3 d-flex align-items-center">
                     <img src="https://picsum.photos/100/100" alt="User" class="img-fluid rounded-circle mr-3">
                     <div>
                         <h2 class="title-line">varelilla1</h2>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <!-- Estadísticas del usuario -->
-                <div class="user-stats bg-secondary text-light p-3 mb-3">
+                <div class="userStats user-stats bg-secondary text-light p-3 mb-3">
                     <h4 class="title-line">User Stats</h4>
                     <div class="row">
                         <div class="col-md-6">
@@ -83,7 +83,7 @@
                 <!-- Últimas partidas jugadas -->
                 <div class="last-games bg-secondary text-light p-3">
                     <h4 class="title-line">Last Games Played</h4>
-                    <div class="list-group">
+                    <div class="userGames list-group">
                         <a href="#" class="list-group-item list-group-item-action bg-dark text-light my-2">Game Title 1
                             - Level 5, Wave 3 - <small>22 Apr 2024</small></a>
                         <a href="#" class="list-group-item list-group-item-action bg-dark text-light my-2">Game Title 2
@@ -99,7 +99,7 @@
                 </div>
                 <div class="recent-achievements bg-secondary text-light p-3">
                     <h4 class="title-line">Recent Achievements</h4>
-                    <div class="achievement-list my-2">
+                    <div class="userAchievements achievement-list my-2">
                         <div class="d-flex align-items-center my-2">
                             <img src="https://picsum.photos/40/40" alt="Achievement Icon" class="img-fluid mr-2">
                             <span>Achievement Title 1</span>
@@ -127,8 +127,8 @@
                                 <h3 class="text-center mb-4">Sign in to your Epic Games Account</h3>
                                 <form>
                                     <div class="form-group">
-                                        <label for="email">Email Address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                        <label for="email">User Name</label>
+                                        <input class="form-control" id="email" placeholder="Enter email">
                                     </div>
                                     <div class="form-group">
                                         <label for="password">Password</label>
@@ -198,8 +198,9 @@
         
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="js/user.js"></script>
 </body>
 

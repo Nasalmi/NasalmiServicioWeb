@@ -1,7 +1,6 @@
 // vamos a cargar los 4 primeros puntuaciones en la carga de la pagina
 $(document).ready(function(){
     //cargar las 4 primeras puntuaciones sacandolas de un servicio web montado en node
-    alert("hola");
     $.ajax({
         url: "http://52.3.170.212:8080/api/games/recent",
         type: "GET",
@@ -12,7 +11,6 @@ $(document).ready(function(){
             $(".ranking-list").empty();
             
             for (var i = 0; i < partidas.length; i++) { 
-                console.log(partidas[i]);
                 html = "<div class='ranking-item'>" + 
                     "<img src='https://picsum.photos/240/120' alt='User Avatar' class='user-avatar rounded'>" +
                     "<div class='user-info'>" +

@@ -134,6 +134,48 @@ exports.getRecentGames = async (req, res) => {
 	}
 };
 
+exports.getTop15 = async (req, res) => {
+	try {
+	
+		const topScores = await Game.aggregate([
+            {
+                $lookup: {
+                    from: 'users',  // Asegúrate de que el nombre de la colección de usuarios sea correcto
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'userDetails'
+                }
+            },
+            {
+                $unwind: '$userDetails'
+            },
+            {
+                $sort: {
+                    'level': -1,  // Orden descendente por nivel
+                    'wave': -1    // Orden descendente por oleada
+                }
+            },
+            {
+                $limit: 15  // Limita los resultados a los 15 mejores
+            },
+            {
+                $project: {
+                    _id: 0,
+                    username: '$userDetails.username',  // Mostrar sólo el nombre de usuario
+                    level: 1,
+                    wave: 1,
+                    time_spent: 1,
+                    total_gold: 1,
+		    profile_image: '$userDetails.profile_image'
+                }
+            }
+        ]);
+	res.status(200).json(topScores);
+	} catch (error) {
+		res.status(500).send({ message: "Error retrieving top 15 games", error: error });
+	}
+};
+
 exports.getGameStats = async (req, res) => {
 	try {
 		const games = await Game.find();

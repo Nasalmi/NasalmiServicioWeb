@@ -12,6 +12,12 @@ router.get('/users/:id', userController.findUserById);
 router.put('/users/:id', userController.updateUser);
 router.post('/login', userController.loginUser);
 router.delete('/users/:id', userController.deleteUser);
+const { isLoggedIn } = require('./controllers/userController');
+
+// Rutas protegidas
+router.get('/ruta-protegida', isLoggedIn, (req, res) => {
+    res.send('Esta es una ruta solo para usuarios logueados');
+});
 
 
 // Rutas para las partidas
@@ -19,6 +25,7 @@ router.post('/games', gameController.createGame);
 router.get('/games/user/:userId', gameController.findGamesByUser);
 router.get('/games/recent', gameController.getRecentGames);
 router.get('/games/stats', gameController.getGameStats);
+router.get('/games/top15', gameController.getTop15);
 router.post('/gameUser', gameController.createGameUser);
 router.get('/games/:id', gameController.getGameDetails);
 router.delete('/games/:id', gameController.deleteGame);

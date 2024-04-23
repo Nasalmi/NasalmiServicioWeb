@@ -25,7 +25,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="index.html">Home</a>
                 </li>
                 <li class="nav-item">
@@ -34,7 +34,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="rankings.html">Rankings</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link" href="achievements.html">Achievements</a>
                 </li>
                 <li class="nav-item">
@@ -61,8 +61,8 @@
                 <p class="text-white-50">14 Achievements</p>
             </div>
             <div class="col text-right">
-                <select class="custom-select style-select">
-                    <option selected>Types of Achievements</option>
+                <select class="tipoLogro custom-select style-select">
+                    <option value="0" selected>Types of Achievements</option>
                     <option value="1">Single Run Only</option>
                     <option value="2">Cumulative</option>
                 </select>
@@ -79,7 +79,7 @@
                         <th scope="col">% Completado</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="logros">
                     <tr>
                         <td><img src="https://picsum.photos/40/40" alt="Logro" class="achievement-icon"></td>
                         <td>Título del Logro</td>
