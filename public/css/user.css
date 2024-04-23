@@ -2,6 +2,17 @@ body {
     background-color: #111;
 }
 
+.btn-custom {
+    width: 150px; 
+}
+
+.btn-container {
+    display: flex;
+    justify-content: space-between; 
+    padding: 10px 0;
+}
+
+
 .user-info,
 .user-stats,
 .last-games,

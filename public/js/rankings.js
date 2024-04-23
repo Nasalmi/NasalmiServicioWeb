@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    initializeUserSession();
     //cargar el top 15 en la tabla
     $.ajax({
         url: "http://52.3.170.212:8080/api/games/top15",
@@ -65,3 +66,54 @@ $(document).ready(function () {
 
 
 });
+
+async function initializeUserSession() {
+    var token = localStorage.getItem('token');
+    if (token) {
+        try {
+            const sessionResponse = await $.ajax({
+                url: "http://52.3.170.212:8080/api/verificar-sesion",
+                type: "GET",
+                headers: { 'Authorization': 'Bearer ' + token },
+            });
+
+            console.log("Sesión activa:", sessionResponse.userId);
+            localStorage.setItem('userId', sessionResponse.userId);
+            $("#logoutButton").show();
+            $("#loginButton").hide();
+            $("#userButton").show();
+
+            await loadUserRank(sessionResponse.userId);
+
+        } catch (xhr) {
+            console.log("Sesión no activa:", xhr.responseText);
+            localStorage.removeItem('token');
+            alert("Tu sesión ha expirado, por favor inicia sesión nuevamente.");
+        }
+    } else {
+        console.log("No hay token almacenado, usuario no logueado.");
+    }
+}
+
+async function loadUserRank(userId) {
+    try {
+        /*const rankResponse = await $.ajax({
+            url: "http://52.3.170.212:8080/api/user-rank/" + userId,
+            type: "GET"
+        });*/
+
+        // Supongamos que quieres reemplazar un div con clase 'rank-display' con la nueva información del rango
+        $('#signInAlert').html(
+        '<a href="#" class="list-group-item list-group-item-action bg-secondary text-white d-flex justify-content-between align-items-center">'+
+            '<div class="left-side d-flex align-items-center">'+
+                '<h5 class="mb-0">1</h5>'+
+                '<img src="https://picsum.photos/40/40" alt="Logo" class="img-fluid rounded-circle mr-2">'+
+                '<h5 class="mb-0">GH 9 ALI</h5>'+
+            '</div>'+
+            '<small class="score">1234</small>'+
+        '</a>'
+    );
+    } catch (error) {
+
+    }
+}

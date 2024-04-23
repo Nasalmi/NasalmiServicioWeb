@@ -17,8 +17,14 @@ exports.createUser = async (req, res) => {
             achievements: req.body.achievements,
             settings: req.body.settings
         });
-        await newUser.save();
-        res.status(201).send({ message: "User created successfully!", userId: newUser._id });
+        const user = await newUser.save();
+
+        const token = jwt.sign({ _id: user._id }, 'tu_secreto_jwt_aqui', { expiresIn: '24h' });
+
+        // Guardar el userID en la sesión
+        req.session.userId = user._id;
+
+        return res.status(200).send({ message: "Inicio de sesión exitoso.", userId: user._id });
     } catch (error) {
         if (error.code === 11000) { // Código de error para violaciones de campos únicos
             res.status(409).send({ message: "Email or username already exists." });
@@ -55,17 +61,59 @@ exports.loginUser = async (req, res) => {
     }
 };
 
-// userController.js
-exports.isLoggedIn = (req, res, next) => {
-    if (!req.session.userId) {
-        return res.status(401).send('No autenticado');
+
+// sessionController.js
+exports.verificarSesion = (req, res) => {
+    if (req.session.userId) {
+        res.send({ message: "Sesión activa", userId: req.session.userId });
+    } else {
+        res.status(401).send("No autenticado");
     }
-    next();
 };
 
+exports.logoutUser = (req, res) => {
+    if (req.session) {
+        req.session.destroy(err => {
+            if (err) {
+                res.status(500).send({ message: "Error al intentar cerrar la sesión." });
+            } else {
+                res.send({ message: "Sesión cerrada exitosamente." });
+            }
+        });
+    } else {
+        res.status(200).send({ message: "No se encontró una sesión activa." });
+    }
+};
 
+exports.checkEmailExists = async (req, res) => {
+    const { email } = req.body;
+    try {
+        const emailRegex = new RegExp(`^${email}$`, 'i');
+        const user = await User.findOne({ email: emailRegex });
+        if (user) {
+            res.json({ exists: true });
+        } else {
+            res.json({ exists: false });
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Error checking email", error: err });
+    }
+};
 
-
+exports.checkUsernameExists = async (req, res) => {
+    const { username } = req.body;
+    try {
+        const usernameRegex = new RegExp(`^${username}$`, 'i');
+        const user = await User.findOne({ username: usernameRegex });
+        if (user) {
+            res.json({ exists: true });
+        } else {
+            res.json({ exists: false });
+        }
+    } catch (err) {
+        res.status(500).json({ message: "Error checking username", error: err });
+    }
+};
 
 exports.findAllUsers = async (req, res) => {
     try {

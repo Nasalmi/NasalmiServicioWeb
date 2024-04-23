@@ -38,13 +38,13 @@
                     <a class="nav-link" href="achievements.html">Achievements</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="user.html">User Info</a>
+                    <a class="nav-link" id="userButton" style="display: none;"  href="user.html">User Info</a>
                 </li>
             </ul>
             <div class="navbar-nav">
                 <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
                 <a class="nav-link" href="#"><i class="fas fa-globe"></i></a>
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#loginModal"><i
+                <a class="nav-link" href="#" id="loginButton" data-toggle="modal" data-target="#loginModal"><i
                         class="fas fa-user"></i></a>
                 <a class="nav-link" href="#" id="logoutButton" style="display: none;"><i
                         class="fas fa-sign-out-alt"></i></a>
@@ -201,8 +201,8 @@
                             <h3 class="text-center mb-4">Sign in to your Epic Games Account</h3>
                             <form>
                                 <div class="form-group">
-                                    <label for="email">Email Address</label>
-                                    <input type="email" class="form-control" id="email" placeholder="Enter email">
+                                    <label for="email">User Name</label>
+                                    <input class="form-control" id="email" placeholder="Enter User Name">
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Password</label>
@@ -250,7 +250,7 @@
                                     <input type="password" class="form-control" id="confirmPassword"
                                         placeholder="Confirm your password">
                                 </div>
-                                <div class="text-center">
+                                <div id="btnRegister" class="text-center d-none">
                                     <button type="submit" class="btn btn-primary">REGISTER</button>
                                     <p class="mt-3"><a href="#" class="text-white-50" data-toggle="modal"
                                             data-target="#loginModal" data-dismiss="modal">Back to Sign In</a></p>
@@ -264,11 +264,16 @@
     </div>
 
 
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.2/dist/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
     <script src="js/achievements.js"></script>
+    <script src="js/common.js"></script>
 </body>
 
 </html>

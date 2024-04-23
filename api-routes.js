@@ -10,14 +10,14 @@ router.get('/users', userController.findAllUsers);
 router.get('/users/search', userController.searchUsers);
 router.get('/users/:id', userController.findUserById);
 router.put('/users/:id', userController.updateUser);
-router.post('/login', userController.loginUser);
 router.delete('/users/:id', userController.deleteUser);
-const { isLoggedIn } = require('./controllers/userController');
 
-// Rutas protegidas
-router.get('/ruta-protegida', isLoggedIn, (req, res) => {
-    res.send('Esta es una ruta solo para usuarios logueados');
-});
+router.post('/validMail', userController.checkEmailExists);
+router.post('/validName', userController.checkUsernameExists);
+
+router.post('/login', userController.loginUser);
+router.get('/verificar-sesion', userController.verificarSesion);
+router.get('/logout', userController.logoutUser);
 
 
 // Rutas para las partidas
