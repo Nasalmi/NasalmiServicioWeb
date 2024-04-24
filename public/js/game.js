@@ -60,10 +60,14 @@ async function initializeUserSession() {
   if (token) {
       try {
           const sessionResponse = await $.ajax({
-              url: "http://52.3.170.212:8080/api/verificar-sesion",
-              type: "GET",
-              headers: { 'Authorization': 'Bearer ' + token },
-          });
+                url: "http://nasalmi.duckdns.org/api/verificar-sesion", // Usar el dominio
+                type: "GET",
+                headers: { 'Authorization': 'Bearer ' + token },
+                xhrFields: {
+                    withCredentials: true // Importante para enviar cookies cross-domain
+                },
+                crossDomain: true // Especificar explícitamente para claridad
+            });
 
           console.log("Sesión activa:", sessionResponse.userId);
           localStorage.setItem('userId', sessionResponse.userId);

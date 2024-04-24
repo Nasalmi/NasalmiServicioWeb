@@ -6,9 +6,18 @@ const apiRoutes = require('./api-routes');
 const app = express();
 
 const cors = require('cors');
-app.use(cors());
+
 const session = require('express-session');
 const MongoStore = require('connect-mongo');
+
+const corsOptions = {
+    origin: 'http://nasalmi.duckdns.org', // Asegúrate de que este sea tu dominio correcto
+    credentials: true,
+    optionsSuccessStatus: 200 // Algunos navegadores heredados pueden necesitar esto
+};
+
+app.use(cors(corsOptions));
+
 
 app.use(session({
     secret: 'frasesecretaparaquenonoseveancositas',
@@ -17,8 +26,22 @@ app.use(session({
     store: MongoStore.create({
         mongoUrl: 'mongodb://localhost/Nasalmi'
     }),
-    cookie: { maxAge: 1800000 } // 30 minutos de duración de la cookie
+    cookie: {
+        maxAge: 1800000, // 30 minutos
+    }
 }));
+
+
+
+/*app.use(session({
+    secret: 'frasesecretaparaquenonoseveancositas',
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://localhost/Nasalmi'
+    }),
+    cookie: { maxAge: 1800000 } // 30 minutos de duración de la cookie
+}));*/
 
 
 

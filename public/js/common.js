@@ -24,7 +24,29 @@ $(document).ready(function() {
         var email = $('#email').val(); // Capturar el email ingresado
         var password = $('#password').val(); // Capturar la contraseña ingresada
 
-        $.ajax({
+
+	$.ajax({
+    url: "http://nasalmi.duckdns.org/api/login",  // Usar dominio
+    type: "POST",
+    contentType: "application/json",
+    data: JSON.stringify({ username: email, password: password }),
+    xhrFields: {
+        withCredentials: true  // Asegurar que las cookies se envíen
+    },
+    crossDomain: true,  // Especificar para claridad
+    success: function(response) {
+        console.log("Login exitoso:", response);
+        localStorage.setItem('token', response.token);
+        $('#loginModal').modal('hide');
+        window.location.reload();
+    },
+    error: function(xhr, status, error) {
+        console.log("Error en el login:", xhr.responseText);
+        alert("Error de autenticación: " + xhr.responseText);
+    }
+});
+
+       /* $.ajax({
             url: "http://52.3.170.212:8080/api/login",  // URL del endpoint de login
             type: "POST",
             contentType: "application/json",
@@ -42,7 +64,7 @@ $(document).ready(function() {
                 // Mostrar mensaje de error al usuario
                 alert("Error de autenticación: " + xhr.responseText);
             }
-        });
+        });*/
     });
 
     $('#registerEmail').on('keypress', function(e) {
@@ -194,7 +216,7 @@ $('#btnRegister button').click(function(e) {
     }
 
     $.ajax({
-        url: 'http://52.3.170.212:8080/api/users',  // Asegúrate de que la URL es correcta
+        url: "http://nasalmi.duckdns.org/api/users",  // Usar dominio
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({

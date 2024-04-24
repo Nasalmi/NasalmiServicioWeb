@@ -35,6 +35,37 @@ async function initializeUserSession() {
     if (token) {
         try {
             const sessionResponse = await $.ajax({
+                url: "http://nasalmi.duckdns.org/api/verificar-sesion", // Usar el dominio
+                type: "GET",
+                headers: { 'Authorization': 'Bearer ' + token },
+                xhrFields: {
+                    withCredentials: true // Importante para enviar cookies cross-domain
+                },
+                crossDomain: true // Especificar explícitamente para claridad
+            });
+
+            console.log("Sesión activa:", sessionResponse.userId);
+            localStorage.setItem('userId', sessionResponse.userId);
+            $("#logoutButton").show();
+            $("#loginButton").hide();
+            $("#userButton").show();
+
+        } catch (xhr) {
+            console.log("Sesión no activa:", xhr.responseText);
+            localStorage.removeItem('token');
+            alert("Tu sesión ha expirado, por favor inicia sesión nuevamente.");
+        }
+    } else {
+        console.log("No hay token almacenado, usuario no logueado.");
+    }
+}
+
+
+/*async function initializeUserSession() {
+    var token = localStorage.getItem('token');
+    if (token) {
+        try {
+            const sessionResponse = await $.ajax({
                 url: "http://52.3.170.212:8080/api/verificar-sesion",
                 type: "GET",
                 headers: { 'Authorization': 'Bearer ' + token },
@@ -54,4 +85,4 @@ async function initializeUserSession() {
     } else {
         console.log("No hay token almacenado, usuario no logueado.");
     }
-}
+}*/
