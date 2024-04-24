@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const bodyParser = require('body-parser');
 const apiRoutes = require('./api-routes');
+const path = require('path');
 
 const app = express();
 
@@ -30,6 +31,8 @@ app.use(session({
         maxAge: 1800000, // 30 minutos
     }
 }));
+
+
 
 
 
@@ -68,3 +71,4 @@ app.get('/', (req, res) => {
 });
 
 app.use(express.static('public')); // Asume que 'public' es la carpeta donde está tu index.html y otros archivos estáticos.
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));

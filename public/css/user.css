@@ -87,3 +87,22 @@ body {
     background-color: #111;
 
 }
+
+#profileImageDropzone {
+    background-color: #333; 
+    border: 2px dashed #555; 
+    color: #fff; 
+    padding: 20px; 
+}
+#profileImageDropzone .dz-message {
+    font-size: 1.2em; 
+}
+#profileImageDropzone .dz-preview .dz-image img {
+    width: 100%; 
+    height: auto;
+}
+.img-thumbnail {
+    width: 160px; 
+    height: 160px; 
+    object-fit: cover; 
+}

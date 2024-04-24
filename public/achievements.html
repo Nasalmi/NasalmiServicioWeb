@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/achievements.css">
-    <title>Gestión de Usuarios y Puntuaciones</title>
+    <title>Nasalmi - Achievements</title>
 </head>
 
 <body>
@@ -62,9 +62,10 @@
             </div>
             <div class="col text-right">
                 <select class="tipoLogro custom-select style-select">
-                    <option value="0" selected>Types of Achievements</option>
-                    <option value="1">Single Run Only</option>
-                    <option value="2">Cumulative</option>
+                    <option value="0" selected>Achievement Order</option>
+                    <option value="1">Points</option>
+                    <option value="2">Obtained</option>
+                    <option value="3">Name</option>
                 </select>
             </div>
         </div>
@@ -72,11 +73,11 @@
             <table class="table table-dark table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">Icono</th>
-                        <th scope="col">Título</th>
-                        <th scope="col">Descripción</th>
-                        <th scope="col">Puntos</th>
-                        <th scope="col">% Completado</th>
+                        <th scope="col">Icon</th>
+                        <th scope="col">Títle</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Points</th>
+                        <th scope="col">Num Users</th>
                     </tr>
                 </thead>
                 <tbody class="logros">
@@ -198,7 +199,7 @@
                 <div class="modal-body">
                     <div class="login-container">
                         <div class="login-form bg-dark text-white p-4">
-                            <h3 class="text-center mb-4">Sign in to your Epic Games Account</h3>
+                            <h3 class="text-center mb-4">Sign in to your Nasalmi Account</h3>
                             <form>
                                 <div class="form-group">
                                     <label for="email">User Name</label>
@@ -228,7 +229,7 @@
                 <div class="modal-body">
                     <div class="register-container">
                         <div class="register-form bg-dark text-white p-4">
-                            <h3 class="text-center mb-4">Create your Epic Games Account</h3>
+                            <h3 class="text-center mb-4">Create your Nasalmi Account</h3>
                             <form>
                                 <div class="form-group">
                                     <label for="registerEmail">Email Address</label>

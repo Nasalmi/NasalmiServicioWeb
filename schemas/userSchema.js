@@ -1,3 +1,4 @@
+const { decodeBase64 } = require('bcryptjs');
 const mongoose = require('mongoose');
 const uniqueValidator = require('mongoose-unique-validator');
 
@@ -6,8 +7,19 @@ const UserSchema = new mongoose.Schema({
     password: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     profile_image: { type: String, default: '' },
-    achievements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Achievement' }],
-    settings: { type: Map, of: String }
+    achievements: [{
+        achievement: { type: mongoose.Schema.Types.ObjectId, ref: 'Achievement' },
+        obtainedAt: { type: Date, default: Date.now }
+    }],
+    birth_date: { type: Date },
+    country: { type: String },
+    nickname: { type: String },
+    desc: { type: String },
+    points: { type: Number, default: 0 },
+    monsters_killed: {
+        type: [Number],
+        default: [0, 0, 0, 0, 0]
+    }
 }, {
     collection: 'users'
 });

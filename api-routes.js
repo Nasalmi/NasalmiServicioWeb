@@ -8,12 +8,15 @@ const achievementController = require('./controllers/achievementController');
 router.post('/users', userController.createUser);
 router.get('/users', userController.findAllUsers);
 router.get('/users/search', userController.searchUsers);
+router.get('/users/searchmonster', userController.searchUsersMonster);
 router.get('/users/:id', userController.findUserById);
 router.put('/users/:id', userController.updateUser);
 router.delete('/users/:id', userController.deleteUser);
 
 router.post('/validMail', userController.checkEmailExists);
 router.post('/validName', userController.checkUsernameExists);
+
+router.post('/upload', userController.uploadProfileImage);
 
 router.post('/login', userController.loginUser);
 router.get('/verificar-sesion', userController.verificarSesion);

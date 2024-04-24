@@ -12,11 +12,30 @@ exports.createAchievement = async (req, res) => {
 };
 
 exports.getAllAchievements = async (req, res) => {
+    const sortIndex = parseInt(req.query.sortIndex); 
+
+    let sortKey = 'name';
+    switch(sortIndex) {
+        case 1:
+            sortKey = 'points';
+            break;
+        case 2:
+            sortKey = 'obtenido';
+            break;
+        case 3:
+            sortKey = 'name';
+            break;
+        default:
+            sortKey = 'name';
+            break;
+    }
+
     try {
-        const achievements = await Achievement.find();
-        res.status(200).send(achievements);
+        const achievements = await Achievement.find({}).sort({ [sortKey]: 1 });
+        res.status(200).json(achievements);
     } catch (error) {
-        res.status(500).send(error);
+        console.error("Error al obtener logros ordenados:", error);
+        res.status(500).send({ message: "Error al procesar la solicitud", error });
     }
 };
 

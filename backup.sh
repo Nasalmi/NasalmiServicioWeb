@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Configuración de las rutas y bases de datos
-REPO_PATH="/home/ubuntu/Service/NasalmiServicioWeb/"
+REPO_PATH="home/ubuntu/Service/NasalmiServicioWeb/"
 DB_BACKUP_PATH="$REPO_PATH/db_backups"
 DB_NAME="Nasalmi"
 DATE=$(date +%Y%m%d_%H%M%S)
@@ -22,8 +22,8 @@ git add .
 # Realiza un commit
 git commit -m "Automatic backup on $DATE"
 
-# Empuja los cambios al repositorio original y al de backup
-git push backup main
+/home/ubuntu/Service/NasalmiServicioWeb/pass.sh
+
 
 
 

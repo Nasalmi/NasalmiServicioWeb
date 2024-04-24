@@ -78,6 +78,7 @@ exports.createGameUser = async (req, res) => {
             time_spent,
             monsters_killed,
             total_gold,
+			total_hearts,
             date
         });
 
@@ -126,21 +127,72 @@ exports.deleteGame = async (req, res) => {
 };
 
 exports.getRecentGames = async (req, res) => {
-	try {
-		const recentGames = await Game.find({}).sort({ date: -1 }).limit(4);
-		res.status(200).send(recentGames);
-	} catch (error) {
-		res.status(500).send({ message: "Error retrieving recent games", error: error });
-	}
+    try {
+        const recentGames = await Game.aggregate([
+            {
+                $lookup: {
+                    from: 'users',  
+                    localField: 'user_id',
+                    foreignField: '_id',
+                    as: 'userDetails'
+                }
+            },
+            {
+                $unwind: '$userDetails'  
+            },
+            {
+                $sort: { 'date': -1 }  
+            },
+            {
+                $limit: 4 
+            },
+            {
+                $project: {  
+                    _id: 1,
+                    level: 1,
+                    wave: 1,
+                    time_spent: 1,
+                    total_gold: 1,
+                    total_hearts: 1,
+                    date: 1,
+                    username: '$userDetails.username' 
+                }
+            }
+        ]);
+        res.status(200).send(recentGames);
+    } catch (error) {
+        console.error("Error retrieving recent games:", error);
+        res.status(500).send({ message: "Error retrieving recent games", error });
+    }
 };
 
+
 exports.getTop15 = async (req, res) => {
+	const sortIndex = parseInt(req.query.sortIndex); 
+    let sort = {};
+    switch (sortIndex) {
+        case 1:
+            sort = { 'level': -1, 'wave': -1 }; 
+            break;
+        case 2:
+            sort = { 'total_gold': -1 }; 
+            break;
+        case 3:
+            sort = { 'total_hearts': -1 }; 
+            break;
+        case 4:
+            sort = { 'time_spent': 1 }; 
+            break;
+        default:
+            sort = { 'level': -1, 'wave': -1 }; 
+            break;
+    }
 	try {
 	
 		const topScores = await Game.aggregate([
             {
                 $lookup: {
-                    from: 'users',  // Asegúrate de que el nombre de la colección de usuarios sea correcto
+                    from: 'users',  
                     localField: 'user_id',
                     foreignField: '_id',
                     as: 'userDetails'
@@ -150,23 +202,21 @@ exports.getTop15 = async (req, res) => {
                 $unwind: '$userDetails'
             },
             {
-                $sort: {
-                    'level': -1,  // Orden descendente por nivel
-                    'wave': -1    // Orden descendente por oleada
-                }
+                $sort: sort
             },
             {
-                $limit: 15  // Limita los resultados a los 15 mejores
+                $limit: 15  
             },
             {
                 $project: {
                     _id: 0,
-                    username: '$userDetails.username',  // Mostrar sólo el nombre de usuario
+                    username: '$userDetails.username', 
                     level: 1,
                     wave: 1,
                     time_spent: 1,
                     total_gold: 1,
-		    profile_image: '$userDetails.profile_image'
+					total_hearts: 1,
+		    		profile_image: '$userDetails.profile_image'
                 }
             }
         ]);

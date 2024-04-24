@@ -1,8 +1,37 @@
 $(document).ready(function () {
+    var profileImage = null;
+
+    var profileImageDropzone = new Dropzone("#profileImageDropzone", {
+        url: "#",
+        autoProcessQueue: false,
+        clickable: true,
+        addRemoveLinks: true,
+        maxFiles: 1,
+        dictDefaultMessage: "Click here and select your image",
+        acceptedFiles: "image/*",
+        previewTemplate: document.querySelector('#preview-template').innerHTML,
+    
+        // Eventos
+        init: function() {
+            this.on("addedfile", function(file) {
+                profileImage = file;
+                if (this.files.length > 1) {
+                    this.removeFile(this.files[0]);
+                    
+                }
+                document.getElementById('profileImage').value = file.name;
+            });
+            this.on("removedfile", function(file) {
+                document.getElementById('profileImage').value = '';
+            });
+        },
+    });
+
     initializeUserSession();
     $('#toggleUserInfo').click(function () {
         if ($(this).text() == "Modify My Info") {
             // Hacer una llamada AJAX para obtener los datos del usuario
+       
             $.ajax({
                 url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
                 type: 'GET',
@@ -12,6 +41,12 @@ $(document).ready(function () {
                     $('.userStats').fadeOut('slow', function() {
                         $('.userModify').fadeIn('slow');
                     });
+                    fecha = new Date(response.birth_date).toISOString().split('T')[0];
+                    $('#userInfoForm input[name="dateOfBirth"]').val(fecha);
+                    $('#userInfoForm input[name="country"]').val(response.country);
+                    $('#userInfoForm input[name="profileImage"]').val(response.profile_image);
+                    $('#userInfoForm input[name="alias"]').val(response.nickname);
+                    $('#userInfoForm textarea[name="description"]').val(response.desc);
                 },
                 error: function (error) {
                     console.error('Failed to fetch user info:', error);
@@ -26,16 +61,48 @@ $(document).ready(function () {
     });
 
     $(document).on('click', '#updateUserInfo', function() {
-        var parametros = $('#userInfoForm').serialize(); // Serializa los datos del formulario
+        //var parametros = $('#userInfoForm').serialize(); // Serializa los datos del formulario
+        var formData = new FormData();
+
+        formData.append('profile_image', profileImage);
+        console.log(profileImage);
+
+        // Crear una solicitud AJAX para cargar la imagen
         $.ajax({
-            url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
-            type: 'PUT',
-            data: parametros,
+            url: 'http://52.3.170.212:8080/api/upload',
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
             success: function(response) {
-                alert('User info updated successfully!');
+                console.log('Ruta de la imagen subida:', response.filePath);
+    
+                // Ahora que la imagen se ha subido con éxito, podemos enviar los otros datos del formulario
+                var parametros = {
+                    birth_date: $('#userInfoForm input[name="dateOfBirth"]').val(),
+                    country: $('#userInfoForm input[name="country"]').val(),
+                    profile_image: response.filePath, // Utilizamos la ruta de la imagen subida
+                    nickname: $('#userInfoForm input[name="alias"]').val(),
+                    desc: $('#userInfoForm textarea[name="description"]').val()
+                };
+    
+                // Realizar la solicitud AJAX para actualizar la información del usuario
+                $.ajax({
+                    url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
+                    type: 'PUT',
+                    data: parametros,
+                    success: function(response) {
+                        alert('User info updated successfully!');
+                        window.location.reload();
+
+                    },
+                    error: function(error) {
+                        console.error('Error updating user info:', error);
+                    }
+                });
             },
             error: function(error) {
-                console.error('Error updating user info:', error);
+                console.error('Error al subir la imagen:', error);
             }
         });
     });
@@ -116,15 +183,38 @@ function loadUserInfo(userId) {
         datatype: "json",
         success: function (response) {
             $(".userInfo").empty();
-
-            var html = '<img src="' + response.profile_image + '" alt="User" class="img-fluid rounded-circle mr-3">' +
+            var desc = response.desc ? response.desc : "You dont have a description";
+            var html = '<img src="http://nasalmi.duckdns.org/' + response.profile_image.replace("public/", "") + '" alt="User" class="img-fluid rounded-circle mr-3 img-thumbnail">' +
                 '<div>' +
                 '<h2 class="title-line">' + response.username + '</h2>' +
-                '<p>Email ' + response.email + '</p>' +
-                '<p>El mejor usuario de la historia</p>' +
+                '<p>' + response.email + '</p>' +
+                '<p>' + desc + '</p>' +
                 '</div>';
 
             $(".userInfo").append(html);
+
+            $(".userStats").empty();
+            var monstersKilled = 0;
+            for (var i = 0; i < 5; i++) {
+                try {
+                    monstersKilled += response.monsters_killed[i];
+                } catch (error) {
+                    monstersKilled += 0;
+                }
+            }
+            var score = response.points ? response.points : 0;
+            var html = '<h4 class="title-line">User Stats</h4>' +
+                '<div class="row">' +
+                '<div class="col-md-6">' +
+                '<p>Nickname: ' + response.nickname + '</p>' +
+                '<p>Monsters killed: ' + monstersKilled + '</p>' +
+                '</div>' +
+                '<div class="col-md-6">' +
+                '<p>Achievements unlocked: ' + response.achievements.length + '</p>' +
+                '<p>Achievements Score: ' + score + '</p>' +
+                '</div>' +
+                '</div>';
+            $(".userStats").append(html);
 
             $(".userAchievements").empty();
             response.achievements.forEach(achievement => {

@@ -7,6 +7,7 @@ const GameSchema = new mongoose.Schema({
     time_spent: { type: Number, required: true },
     monsters_killed: { type: Map, of: Number, required: true },  // Clave es el tipo de monstruo y valor es la cantidad
     total_gold: { type: Number, required: true },
+    total_hearts: { type: Number, required: true },
     date: { type: Date, default: Date.now }
 },
     {

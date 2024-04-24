@@ -4,6 +4,40 @@ const bcrypt = require('bcrypt');
 const saltRounds = 10;
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+const path = require('path');
+
+// Configuración de Multer
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads/')  // Asegúrate de que esta carpeta exista
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + '-' + Date.now() + path.extname(file.originalname))
+  }
+});
+
+const upload = multer({ storage: storage }).single('profile_image');
+
+exports.uploadProfileImage = (req, res) => {
+    try {
+        // Manejar la carga de archivos
+        upload(req, res, function(err) {
+            if (err instanceof multer.MulterError) {
+                // Manejar errores de Multer
+                return res.status(500).json(err);
+            } else if (err) {
+                // Manejar otros errores
+                return res.status(500).json(err);
+            }
+
+            // Si la carga de archivos fue exitosa, responder con un mensaje de éxito
+            return res.status(200).json({ message: 'File uploaded successfully', filePath: req.file.path });
+        });
+    } catch (error) {
+        res.status(500).send(error);
+    }
+};
 
 
 exports.createUser = async (req, res) => {
@@ -13,9 +47,6 @@ exports.createUser = async (req, res) => {
             username: req.body.username,
             password: hashedPassword,
             email: req.body.email,
-            profile_image: req.body.profile_image,
-            achievements: req.body.achievements,
-            settings: req.body.settings
         });
         const user = await newUser.save();
 
@@ -150,7 +181,10 @@ exports.findUserById = async (req, res) => {
                             in: "$$achievement.name"
                         }
                     },
-                    settings: 1
+                    birth_date: 1,
+                    country: 1,
+                    nickname: 1,
+                    desc: 1
                 }
             }
         ]);
@@ -201,10 +235,31 @@ exports.searchUsers = async (req, res) => {
                 { email: { $regex: searchQuery, $options: 'i' } }
             ]
         };
-        const users = await User.find(query);
+        const users = await User.find(query).sort({ points: 1 });
         res.status(200).send(users);
     } catch (error) {
         res.status(500).send({ message: "Error al buscar usuarios", error: error });
     }
 };
+
+exports.searchUsersMonster= async (req, res) => {
+    const monsterIndex = req.query.monsterIndex;  // Obtener el índice del monstruo desde la consulta
+
+    // Verificar que el índice del monstruo es un número válido y dentro del rango permitido
+    if (!monsterIndex || isNaN(monsterIndex) || monsterIndex < 0 || monsterIndex >= 5) {
+        return res.status(400).send({ message: "Índice de monstruo inválido. Debe ser entre 0 y 4." });
+    }
+
+    try {
+        const users = await User.find({})
+            .sort({ [`monsters_killed.${monsterIndex}`]: -1 }) // Ordenar por el conteo de monstruos del índice especificado
+            .exec();
+
+        res.status(200).json(users);
+    } catch (error) {
+        console.error("Error al obtener usuarios:", error);
+        res.status(500).send({ message: "Error al buscar usuarios", error });
+    }
+};
+
 

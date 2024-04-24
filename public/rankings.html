@@ -8,7 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/rankings.css">
-    <title>Gestión de Usuarios y Puntuaciones</title>
+    <title>Nasalmi - Rankings</title>
 </head>
 
 <body>
@@ -59,13 +59,21 @@
             <div class="col-md-6">
                 <div class="ranking-header bg-dark text-white text-center p-3 my-3">
                     <div class="d-flex justify-content-between">
-                        <select class="custom-select mr-2">
-                            <option selected>Mode</option>
-                            <!-- Primer ComboBox -->
+                        <select id="rankUsers" class="custom-select mr-2">
+                            <option selected>Rank Users by</option>
+                            <option value="1">Score</option>
+                            <option value="2">Flys killed</option>
+                            <option value="3">Meat killed</option>
+                            <option value="4">Worns killed</option>
+                            <option value="5">Humans killed</option>
+                            <option value="6">Vis killed</option>
                         </select>
-                        <select class="custom-select">
-                            <option selected>Chapter</option>
-                            <!-- Segundo ComboBox -->
+                        <select id="rankGames" class="custom-select">
+                            <option selected>Rank Games by</option>
+                            <option value="1">Score</option>
+                            <option value="2">Gold obtained</option>
+                            <option value="3">Hearts gained</option>
+                            <option value="4">Time</option>
                         </select>
                     </div>
                     <div class="input-group my-3">
@@ -169,7 +177,7 @@
                 <div class="modal-body">
                     <div class="login-container">
                         <div class="login-form bg-dark text-white p-4">
-                            <h3 class="text-center mb-4">Sign in to your Epic Games Account</h3>
+                            <h3 class="text-center mb-4">Sign in to your Nasalmi Account</h3>
                             <form>
                                 <div class="form-group">
                                     <label for="email">User Name</label>
@@ -199,7 +207,7 @@
                 <div class="modal-body">
                     <div class="register-container">
                         <div class="register-form bg-dark text-white p-4">
-                            <h3 class="text-center mb-4">Create your Epic Games Account</h3>
+                            <h3 class="text-center mb-4">Create your Nasalmi Account</h3>
                             <form>
                                 <div class="form-group">
                                     <label for="registerEmail">Email Address</label>
