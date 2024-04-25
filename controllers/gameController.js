@@ -1,11 +1,12 @@
 const Game = require('../schemas/gameSchema');
 const User = require('../schemas/userSchema');
 const Achievement = require('../schemas/achievementSchema');
+const mongoose = require('mongoose');
 
 exports.createGame = async (req, res) => {
 	try {
 		const newGame = new Game(req.body);
-		const savedGame = await newGame.save();
+		const savedGame = await newGame.save();	
 		await checkAndAddAchievements(savedGame.user_id, savedGame);
 		res.status(201).send(savedGame);
 	} catch (error) {
@@ -19,51 +20,48 @@ async function checkAndAddAchievements(userId, gameData) {
 	let newAchievements = [];
 
 	achievements.forEach(achievement => {
-		if (achievement.name == "Cazador de Zombies" && gameData.monsters_killed['zombies'] >= 50) {
-			if (!user.achievements.includes(achievement._id)) {
-				newAchievements.push(achievement._id);
-				console.log("logro Zombies");
-			}
-		}
+	
 		
-		if (achievement.name == "Primerizo" && gameData.level >= 1) {
-			if (!user.achievements.includes(achievement._id)) {
-				newAchievements.push(achievement._id);
-				console.log("Logro Primerizo");
+		if (achievement.name == "Logro Para Probar" && gameData.level >= 1) {
+			if (!user.achievements.includes(achievement.achievement)) {
+
+				newAchievements.push(new mongoose.Types.ObjectId(achievement._id));
+				
+				achievement.obtenido += 1;
+				user.points += achievement.points;
+				achievement.save(); // Asegúrate de que el logro es un documento que puedes guardar
+            	user.save();
 			}
 		}
 
-		if (achievement.nam == "Maestro del Juego" && gameData.level >= 10) {
-			if (!user.achievements.includes(achievement._id)) {
-				newAchievements.push(achievement._id);
-				console.log("Logro Maestro");
-			}
-		}
 
-		if (achievement.name == "Acaparador de Oro" && gameData.total_gold >= 1000) {
-			if (!user.achievements.includes(achievement._id)) {
-				newAchievements.push(achievement._id);
-				console.log("Logro Oro");
-			}
-		}
-
-		if (achievement.name == "Destructor de Fantasmas" && gameData.monsters_killed['ghosts'] >= 30) {
-			if (!user.achievements.includes(achievement._id)) {
-				newAchievements.push(achievement._id);
-				console.log("Logro Fantasmas");
-			}
-		}
 	});
 
 	if (newAchievements.length > 0) {
+
 		await User.findByIdAndUpdate(userId, {
-			$push: { achievements: { $each: newAchievements } }
+			$push: { achievements: { $each: newAchievements.map(id => ({ achievement: new mongoose.Types.ObjectId(id) })) } }
 		});
+		
+		
 	}
 }
 
+async function updateUserMonsterKills(userId, monsters) {
+    try {
+        const user = await User.findById(userId);
+        if (!user) throw new Error("User not found");
+
+        // Asegurar que el array monsters_killed tiene la longitud correcta
+        user.monsters_killed = user.monsters_killed.map((killCount, index) => killCount + (monsters[index] || 0));
+        await user.save();
+    } catch (error) {
+        console.error("Error al actualizar los conteos de monstruos:", error);
+    }
+}
+
 exports.createGameUser = async (req, res) => {
-    const { user_id, level, wave, time_spent, monsters_killed, total_gold, date } = req.body;
+    const { user_id, level, wave, time_spent, monsters, total_gold,total_hearts, date } = req.body;
 
     try {
         const user = await User.findById(user_id);
@@ -76,14 +74,17 @@ exports.createGameUser = async (req, res) => {
             level,
             wave,
             time_spent,
-            monsters_killed,
+            monsters,
             total_gold,
 			total_hearts,
             date
         });
 
+		
+
         const savedGame = await newGame.save();
-	await checkAndAddAchievements(savedGame.user_id, savedGame);
+		await checkAndAddAchievements(savedGame.user_id, savedGame);
+		await updateUserMonsterKills(user_id, monsters);
         return res.status(201).send({ message: "Partida creada con éxito.", gameId: savedGame._id });
     } catch (error) {
         console.error("Error al crear la partida:", error);
@@ -230,15 +231,11 @@ exports.getGameStats = async (req, res) => {
 	try {
 		const games = await Game.find();
 
-		let totalMonstersKilled = {};
+		let totalMonstersKilled = [0, 0, 0, 0, 0];
 
 		games.forEach(game => {
-			game.monsters_killed.forEach((count, type) => {  // Usamos forEach para iterar sobre el Map
-				if (totalMonstersKilled[type]) {
-					totalMonstersKilled[type] += count;
-				} else {
-					totalMonstersKilled[type] = count;
-				}
+			game.monsters.forEach((count, i) => {
+				totalMonstersKilled[i] += count; // Suma directamente en la posición correspondiente
 			});
 		});
 

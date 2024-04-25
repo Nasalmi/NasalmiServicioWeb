@@ -14,7 +14,7 @@ $(document).ready(function () {
                     'class="list-group-item list-group-item-action bg-secondary text-white d-flex justify-content-between align-items-center">' +
                     '<div class="left-side d-flex align-items-center">' +
                     '<h5 class="mb-0">1</h5>' +
-                    '<img src="' + response[i].profile_image + '" alt="Logo" class="img-fluid rounded-circle mr-2">' +
+                    '<img src="' + response[i].profile_image.replace("public/", "") + '" alt="Logo" class="img-fluid rounded-circle mr-2">' +
                     '<h5 class="mb-0">' + response[i].username + '</h5>' +
                     '</div>';
                 puntuacion = (response[i].level * 1000 + response[i].wave * 100);
@@ -80,6 +80,9 @@ $(document).ready(function () {
     });
 
     $("#rankGames").on("change", function () {
+        if ($("#rankGames").val() == 0){
+            return;
+        }
         $(".list-group").empty();
         $(".buscador").val("");
         var parametros = {

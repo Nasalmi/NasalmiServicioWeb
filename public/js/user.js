@@ -65,7 +65,6 @@ $(document).ready(function () {
         var formData = new FormData();
 
         formData.append('profile_image', profileImage);
-        console.log(profileImage);
 
         // Crear una solicitud AJAX para cargar la imagen
         $.ajax({
@@ -218,10 +217,14 @@ function loadUserInfo(userId) {
 
             $(".userAchievements").empty();
             response.achievements.forEach(achievement => {
-                var html = '<div class="d-flex align-items-center my-2">' +
-                    '<img src="" alt="A" class="img-fluid mr-2">' +
-                    '<span>' + achievement + '</span>' +
-                    '</div>';
+                var html = '<div class="d-flex justify-content-between align-items-center my-2">' +
+                            '<div>' + // Añadido un div para agrupar el img y el primer span
+                                '<img src="' + achievement.icon + '" alt="A" class="img-fluid mr-2">' +
+                                '<span>' + achievement.name + '</span>' +
+                            '</div>' +
+                            '<span>' + achievement.points + '</span>' +
+                        '</div>';
+
 
                 $(".userAchievements").append(html);
             });

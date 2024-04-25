@@ -5,7 +5,7 @@ const AchievementSchema = new mongoose.Schema({
     description: { type: String, required: true },
     icon: { type: String, default: '' },  // Opcional: URL a una imagen representativa
     points: { type: Number, required: true },
-    obtenido: { type: Number, default: false }
+    obtenido: { type: Number, default: 0 }
 },
 {collection: 'achievements'});
 

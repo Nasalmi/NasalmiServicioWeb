@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const path = require('path');
+const achievementSchema = require('../schemas/achievementSchema');
 
 // Configuración de Multer
 const storage = multer.diskStorage({
@@ -164,7 +165,7 @@ exports.findUserById = async (req, res) => {
             {
                 $lookup: {
                     from: 'achievements',
-                    localField: 'achievements',
+                    localField: 'achievements.achievement',
                     foreignField: '_id',
                     as: 'achievementsDetails'
                 }
@@ -174,21 +175,16 @@ exports.findUserById = async (req, res) => {
                     username: 1,
                     email: 1,
                     profile_image: 1,
-                    achievements: {
-                        $map: {
-                            input: "$achievementsDetails",
-                            as: "achievement",
-                            in: "$$achievement.name"
-                        }
-                    },
+                    achievements : '$achievementsDetails',
                     birth_date: 1,
                     country: 1,
                     nickname: 1,
-                    desc: 1
+                    desc: 1,
+                    points: 1,
+                    monsters_killed: 1,
                 }
             }
         ]);
-
         if (user.length === 0) {
             return res.status(404).send({ message: "User not found" + userId });
         } else {
