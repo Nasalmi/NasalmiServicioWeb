@@ -13,9 +13,9 @@ $(document).ready(function(){
             
             for (var i = 0; i < partidas.length; i++) { 
                 html = "<div class='ranking-item'>" + 
-                    "<img src='https://picsum.photos/240/120' alt='User Avatar' class='user-avatar rounded'>" +
+                    "<img src='Resources/Tutorial4_2.png' alt='User Avatar' class='user-avatar rounded'>" +
                     "<div class='user-info'>" +
-                    "<h3 class='user-name'>" + partidas[i].user_id + "</h3>" +
+                    "<h3 class='user-name'>" + partidas[i].username + "</h3>" +
                     "<div class='user-stats'>" +
                     "<span class='user-level'><i class='fas fa-chart-line'></i> " + partidas[i].level + "</span>" +
                     "<span class='user-wave'><i class='fas fa-water'></i> " + partidas[i].wave + "</span>" +

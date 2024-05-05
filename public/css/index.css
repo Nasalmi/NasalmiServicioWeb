@@ -97,6 +97,7 @@
     border: 5px solid #fff;
     position: relative;
     overflow: hidden;
+    height: 363px;
 }
 
 #about-game .game-img {
@@ -104,6 +105,7 @@
     height: auto;
     display: block;
     border-radius: 0;
+    height: 280px;
 }
 
 #about-game .card-img-overlay {
@@ -276,3 +278,4 @@
         width: 100%;
     }
 }
+

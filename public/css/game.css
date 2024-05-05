@@ -7,7 +7,7 @@
     flex-direction: column;
     opacity: 1;
     transition: opacity 0.5s;
-    background-image: url('https://picsum.photos/1600/600');
+    background-image: url('../Resources/main.png');
     background-size: cover;
     background-position: center;
 }
@@ -170,3 +170,21 @@
         padding: 0 15px;
     }
 }
+
+.image-section {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .image-container {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    height: 400px; /* Altura deseada para las imágenes */
+    overflow: hidden; /* Oculta el contenido que se desborde del contenedor */
+  }
+  
+  .image-container img {
+    width: 100%; /* La imagen ocupa todo el ancho del contenedor */
+    height: 100%; /* La imagen ocupa todo el alto del contenedor */
+    object-fit: cover; /* La imagen se ajusta para cubrir todo el contenedor, manteniendo la relación de aspecto */
+  }
+  

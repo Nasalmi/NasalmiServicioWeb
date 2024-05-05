@@ -137,6 +137,42 @@ $(document).ready(function () {
           });
     });
 
+    $(".userGames").on("click", ".delete-game-btn", function() {
+        var gameId = $(this).closest('.list-group-item').data('game-id');
+        var gameItem = $(this).closest('.list-group-item');
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You won\'t be able to revert this!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'Cancel',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: 'http://52.3.170.212:8080/api/games/' + gameId, 
+                    type: 'DELETE',
+                    success: function(response) {
+                    // Cambiar el estilo del elemento eliminado
+                    gameItem.css('opacity', '0.5');
+                    gameItem.find('.delete-game-btn').remove();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(error);
+                    }
+                });
+                Swal.fire(
+                    'Deleted!',
+                    'Your game has been deleted.',
+                    'success'
+                );
+            }
+        });
+    });
+
+
+
 });
 
 // Envolver todo el código en una función asíncrona para poder usar await
@@ -242,13 +278,24 @@ function loadUserGames(userId) {
             $(".userGames").empty();
             var contador = 0;
             response.forEach((game, index) => {
-                if (index < 10) { // Asumiendo que solo queremos mostrar los primeros 10
-                    var html = '<a href="#" class="list-group-item list-group-item-action bg-dark text-light my-2">' +
-                        game.user_id + " - Level " + game.level + ", Wave " + game.wave + " - " +
-                        '<small>' + game.date + '</small></a>';
-                    $(".userGames").append(html);
-                }
+                var timeSpent = Math.round(game.time_spent); 
+                var formattedDate = new Date(game.date).toLocaleDateString('es-ES'); 
+            
+                var gameId = 'game_' + index;
+                var nombrePartida = 'Game Number ' + (index + 1);
+            
+                var html = '<div class="list-group-item list-group-item-action bg-dark text-light my-2 d-flex justify-content-between align-items-center" id="' + gameId + '" data-game-id="' + game._id + '">' +
+                '<span class="game-id d-none">' + game._id + '</span>' + // Agregar un span oculto con la ID del juego
+                nombrePartida + " - Level " + game.level + ", Wave " + game.wave + " " +
+                '<small>' + formattedDate + '</small>' +
+                '<span class="time-spent"> Time Spent: ' + timeSpent + ' seconds</span>' +
+                '<button class="delete-game-btn btn btn-danger btn-sm">X</button>' +
+                '</div>';
+            
+                // Agregar el juego al contenedor de juegos
+                $(".userGames").append(html);
             });
+            
         }
     });
 }

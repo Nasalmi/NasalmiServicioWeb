@@ -16,10 +16,39 @@ exports.createGame = async (req, res) => {
 
 async function checkAndAddAchievements(userId, gameData) {
 	const user = await User.findById(userId);
-	const achievements = await Achievement.find();
 	let newAchievements = [];
 
-	achievements.forEach(achievement => {
+    // Verificar y otorgar logros relacionados con la partida
+    const achievementsToCheck = [
+        { name: "Rookie Adventurer", condition: true },
+        { name: "Seasoned Fighter", condition: user.games_completed >= 10 },
+        { name: "Master Explorer", condition: user.games_completed >= 25 },
+        { name: "Speed Runner", condition: gameData.time_spent < 600 },
+        { name: "Gold Digger", condition: user.gold_collected >= 1000 },
+        { name: "Heartbreaker", condition: user.hearts_collected >= 50 },
+        { name: "Fly Exterminator", condition: user.monsters_killed[0] >= 500 },
+        { name: "Meat Grinder", condition: user.monsters_killed[1] >= 200 },
+        { name: "Worm Slayer", condition: user.monsters_killed[2] >= 150 },
+        { name: "Humanitarian Visionary", condition: user.monsters_killed[3] >= 100 },
+        { name: "Legendary Survivor", condition: gameData.health_remaining < 10 },
+        { name: "Monster Collector", condition: user.monsters_killed_total >= 1000 },
+        { name: "Monster Hunter", condition: user.monsters_killed_total >= 5000 },
+        { name: "Monster Slayer", condition: user.monsters_killed_total >= 10000 },
+        { name: "Monster Conqueror", condition: user.monsters_killed_total >= 20000 }
+    ];
+
+    for (const achievementData of achievementsToCheck) {
+        const achievement = await Achievement.findOne({ name: achievementData.name });
+        if (achievement && achievementData.condition && !user.achievements.includes(achievement._id)) {
+            newAchievements.push(achievement._id);
+            achievement.obtenido += 1;
+            user.points += achievement.points;
+            await Promise.all([achievement.save(), user.save()]);
+        }
+    }
+
+
+	/*achievements.forEach(achievement => {
 	
 		
 		if (achievement.name == "Logro Para Probar" && gameData.level >= 1) {
@@ -35,16 +64,17 @@ async function checkAndAddAchievements(userId, gameData) {
 		}
 
 
-	});
+	});*/
+    console.log("Achievements to add:", newAchievements);
 
-	if (newAchievements.length > 0) {
-
-		await User.findByIdAndUpdate(userId, {
-			$push: { achievements: { $each: newAchievements.map(id => ({ achievement: new mongoose.Types.ObjectId(id) })) } }
-		});
-		
-		
-	}
+    if (newAchievements.length > 0) {
+        const achievementsToAdd = newAchievements.map(id => ({ achievement: id }));
+        
+        await User.findByIdAndUpdate(userId, {
+            $push: { achievements: { $each: achievementsToAdd } }
+        });
+    }
+    
 }
 
 async function updateUserMonsterKills(userId, monsters) {
@@ -83,8 +113,8 @@ exports.createGameUser = async (req, res) => {
 		
 
         const savedGame = await newGame.save();
+        await updateUserMonsterKills(user_id, monsters);
 		await checkAndAddAchievements(savedGame.user_id, savedGame);
-		await updateUserMonsterKills(user_id, monsters);
         return res.status(201).send({ message: "Partida creada con éxito.", gameId: savedGame._id });
     } catch (error) {
         console.error("Error al crear la partida:", error);
@@ -93,13 +123,14 @@ exports.createGameUser = async (req, res) => {
 };
 
 exports.findGamesByUser = async (req, res) => {
-	try {
-		const games = await Game.find({ user_id: req.params.userId });
-		res.status(200).send(games);
-	} catch (error) {
-		res.status(500).send(error);
-	}
+    try {
+        const games = await Game.find({ user_id: req.params.userId }).sort({ date: -1 });
+        res.status(200).send(games);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 };
+
 
 exports.getGameDetails = async (req, res) => {
 	try {
