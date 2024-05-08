@@ -47,24 +47,6 @@ async function checkAndAddAchievements(userId, gameData) {
         }
     }
 
-
-	/*achievements.forEach(achievement => {
-	
-		
-		if (achievement.name == "Logro Para Probar" && gameData.level >= 1) {
-			if (!user.achievements.includes(achievement.achievement)) {
-
-				newAchievements.push(new mongoose.Types.ObjectId(achievement._id));
-				
-				achievement.obtenido += 1;
-				user.points += achievement.points;
-				achievement.save(); // Asegúrate de que el logro es un documento que puedes guardar
-            	user.save();
-			}
-		}
-
-
-	});*/
     console.log("Achievements to add:", newAchievements);
 
     if (newAchievements.length > 0) {
@@ -109,9 +91,7 @@ exports.createGameUser = async (req, res) => {
 			total_hearts,
             date
         });
-
-		
-
+        
         const savedGame = await newGame.save();
         await updateUserMonsterKills(user_id, monsters);
 		await checkAndAddAchievements(savedGame.user_id, savedGame);

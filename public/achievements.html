@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/achievements.css">
     <title>Nasalmi - Achievements</title>
@@ -16,7 +17,7 @@
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="#">
-            <img src="https://picsum.photos/80/30" alt="Logo" class="logo">
+            <img src="Resources/logoNasalmi.png" alt="Logo" class="logo">
             <span class="navbar-brand mb-0 h1">Nasalmi</span>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -42,13 +43,11 @@
                 </li>
             </ul>
             <div class="navbar-nav">
-                <a class="nav-link" href="#"><i class="fas fa-search"></i></a>
-                <a class="nav-link" href="#"><i class="fas fa-globe"></i></a>
                 <a class="nav-link" href="#" id="loginButton" data-toggle="modal" data-target="#loginModal"><i
                         class="fas fa-user"></i></a>
                 <a class="nav-link" href="#" id="logoutButton" style="display: none;"><i
                         class="fas fa-sign-out-alt"></i></a>
-                <button class="btn btn-warning my-2 my-sm-0" type="submit">Download</button>
+                        <button class="btn btn-warning my-2 my-sm-0" type="submit" data-toggle="modal" data-target="#downloadModal">Download</button>
             </div>
         </div>
     </nav>
@@ -58,7 +57,7 @@
         <div class="row">
             <div class="col">
                 <h1 class="title-line text-primary">Achievements</h1>
-                <p class="text-white-50">14 Achievements</p>
+                <p class="text-white-50 textoAchievements">14 Achievements</p>
             </div>
             <div class="col text-right">
                 <select class="tipoLogro custom-select style-select">
@@ -231,25 +230,21 @@
                         <div class="register-form bg-dark text-white p-4">
                             <h3 class="text-center mb-4">Create your Nasalmi Account</h3>
                             <form>
-                                <div class="form-group">
-                                    <label for="registerEmail">Email Address</label>
-                                    <input type="email" class="form-control" id="registerEmail"
-                                        placeholder="Enter email">
+                                <div class="form-group d-flex align-items-center">
+                                    <input type="email" class="form-control" id="registerEmail" placeholder="Enter email">
+                                    <span class="material-icons ml-2" style="cursor: pointer;">keyboard_return</span>
                                 </div>
-                                <div class="form-group d-none" id="usernameGroup">
-                                    <label for="username">Username</label>
-                                    <input type="text" class="form-control" id="username"
-                                        placeholder="Choose a username">
+                                <div class="form-group d-none d-flex align-items-center" id="usernameGroup">
+                                    <input type="text" class="form-control" id="username" placeholder="Choose a username">
+                                    <span class="material-icons ml-2" style="cursor: pointer;">keyboard_return</span>
                                 </div>
-                                <div class="form-group d-none" id="passwordGroup">
-                                    <label for="registerPassword">Password</label>
-                                    <input type="password" class="form-control" id="registerPassword"
-                                        placeholder="Enter password">
+                                <div class="form-group d-none d-flex align-items-center" id="passwordGroup">
+                                    <input type="password" class="form-control" id="registerPassword" placeholder="Enter password">
+                                    <span class="material-icons ml-2" style="cursor: pointer;">keyboard_return</span>
                                 </div>
-                                <div class="form-group d-none" id="confirmPasswordGroup">
-                                    <label for="confirmPassword">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirmPassword"
-                                        placeholder="Confirm your password">
+                                <div class="form-group d-none d-flex align-items-center" id="confirmPasswordGroup">
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password">
+                                    <span class="material-icons ml-2" style="cursor: pointer;">keyboard_return</span>
                                 </div>
                                 <div id="btnRegister" class="text-center d-none">
                                     <button type="submit" class="btn btn-primary">REGISTER</button>
@@ -259,6 +254,59 @@
                             </form>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="downloadModal" tabindex="-1" aria-labelledby="downloadModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="downloadModalLabel">Download Game</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="download-container">
+                        <table class="table table-dark table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Component</th>
+                                    <th scope="col">Requirement</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Operating System</td>
+                                    <td>Windows XP, Vista, 7</td>
+                                </tr>
+                                <tr>
+                                    <td>Processor</td>
+                                    <td>2.5 GHz</td>
+                                </tr>
+                                <tr>
+                                    <td>Memory</td>
+                                    <td>1 GB RAM</td>
+                                </tr>
+                                <tr>
+                                    <td>Hard Drive Space</td>
+                                    <td>50 MB</td>
+                                </tr>
+                                <tr>
+                                    <td>Graphics Card</td>
+                                    <td>DirectX9.0c Compatible Card (Shader Model 2.0)</td>
+                                </tr>
+                                <tr>
+                                    <td>DirectX®</td>
+                                    <td>9.0c</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <button type="button" class="btn btn-primary"><a class="btn btn-primary" href="uploads/Nasalmi.rar">DOWNLOAD</a></button>
                 </div>
             </div>
         </div>

@@ -29,7 +29,7 @@ $(document).ready(function () {
                 numLogros++;
 
             }
-            $(".text-white-50").text(numLogros + " Achievements");
+            $(".textoAchievements").text(numLogros + " Achievements");
         }
     });
 

@@ -32,22 +32,6 @@ app.use(session({
     }
 }));
 
-
-
-
-
-/*app.use(session({
-    secret: 'frasesecretaparaquenonoseveancositas',
-    resave: false,
-    saveUninitialized: true,
-    store: MongoStore.create({
-        mongoUrl: 'mongodb://localhost/Nasalmi'
-    }),
-    cookie: { maxAge: 1800000 } // 30 minutos de duración de la cookie
-}));*/
-
-
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/api', apiRoutes);

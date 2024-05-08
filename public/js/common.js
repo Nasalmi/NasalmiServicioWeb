@@ -1,9 +1,9 @@
-$(document).ready(function() {
-    $('#logoutButton').on('click', function() {
+$(document).ready(function () {
+    $('#logoutButton').on('click', function () {
         $.ajax({
             url: '/api/logout',
             type: 'GET',
-            success: function(response) {
+            success: function (response) {
                 console.log(response.message);
                 // Limpiar localStorage o cualquier otro almacenamiento en el cliente
                 localStorage.removeItem('token');
@@ -11,63 +11,49 @@ $(document).ready(function() {
                 // Redirigir al usuario a la página de inicio de sesión o a la página principal
                 window.location.reload();
             },
-            error: function(xhr) {
+            error: function (xhr) {
                 console.error("Error al cerrar la sesión:", xhr.responseText);
             }
         });
     });
 
+    $('.material-icons').on('click', function() {
+        $(this).prev('input').trigger(jQuery.Event('keypress', {which: 13}));
+    });
     
-    $('#loginModal form').on('submit', function(event) {
+
+
+    $('#loginModal form').on('submit', function (event) {
         event.preventDefault(); // Prevenir el comportamiento por defecto del formulario (recarga de página)
 
         var email = $('#email').val(); // Capturar el email ingresado
         var password = $('#password').val(); // Capturar la contraseña ingresada
 
 
-	$.ajax({
-    url: "http://nasalmi.duckdns.org/api/login",  // Usar dominio
-    type: "POST",
-    contentType: "application/json",
-    data: JSON.stringify({ username: email, password: password }),
-    xhrFields: {
-        withCredentials: true  // Asegurar que las cookies se envíen
-    },
-    crossDomain: true,  // Especificar para claridad
-    success: function(response) {
-        console.log("Login exitoso:", response);
-        localStorage.setItem('token', response.token);
-        $('#loginModal').modal('hide');
-        window.location.reload();
-    },
-    error: function(xhr, status, error) {
-        console.log("Error en el login:", xhr.responseText);
-        alert("Error de autenticación: " + xhr.responseText);
-    }
-});
-
-       /* $.ajax({
-            url: "http://52.3.170.212:8080/api/login",  // URL del endpoint de login
+        $.ajax({
+            url: "http://nasalmi.duckdns.org/api/login",  // Usar dominio
             type: "POST",
             contentType: "application/json",
-            data: JSON.stringify({ username: email, password: password }),  // Enviar datos como JSON
-            success: function(response) {
+            data: JSON.stringify({ username: email, password: password }),
+            xhrFields: {
+                withCredentials: true  // Asegurar que las cookies se envíen
+            },
+            crossDomain: true,  // Especificar para claridad
+            success: function (response) {
                 console.log("Login exitoso:", response);
-                  // Guardar el token en localStorage
                 localStorage.setItem('token', response.token);
-                $('#loginModal').modal('hide');  // Ocultar el modal de login
-                // Aquí puedes redirigir al usuario o recargar la página para mostrar contenido protegido
+                $('#loginModal').modal('hide');
                 window.location.reload();
             },
-            error: function(xhr, status, error) {
+            error: function (xhr, status, error) {
                 console.log("Error en el login:", xhr.responseText);
-                // Mostrar mensaje de error al usuario
                 alert("Error de autenticación: " + xhr.responseText);
             }
-        });*/
+        });
+
     });
 
-    $('#registerEmail').on('keypress', function(e) {
+    $('#registerEmail').on('keypress', function (e) {
         if (e.which == 13) {  // 13 es el código de tecla para 'Enter'
             e.preventDefault();  // Prevenir el comportamiento por defecto del formulario
 
@@ -78,9 +64,21 @@ $(document).ready(function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Please enter a valid email address.'
-                  });
-                return;
+                    text: 'Please enter a valid email address.',
+                    didOpen: () => {
+                        // Accede directamente al botón de confirmación y aplica el foco
+                        Swal.getConfirmButton().focus();
+
+                        // Agrega un controlador de eventos para escuchar cualquier pulsación de tecla
+                        $(document).on('keydown', function (e) {
+                            Swal.close();  // Cierra el modal cuando se detecta una tecla
+                        });
+                    },
+                    willClose: () => {
+                        // Asegúrate de desvincular el controlador de eventos cuando el modal se cierre
+                        $(document).off('keydown');
+                    }
+                });
             }
             $(this).removeClass('is-invalid');
             if (email) {  // Verifica que el campo no esté vacío
@@ -88,14 +86,27 @@ $(document).ready(function() {
                     url: 'http://52.3.170.212:8080/api/validMail',
                     type: 'POST',
                     data: { email: email },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.exists) {
                             $('#registerEmail').addClass('is-invalid');
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Email already exists!'
-                              });
+                                text: 'Email already exists!',
+                                didOpen: () => {
+                                    // Accede directamente al botón de confirmación y aplica el foco
+                                    Swal.getConfirmButton().focus();
+            
+                                    // Agrega un controlador de eventos para escuchar cualquier pulsación de tecla
+                                    $(document).on('keydown', function (e) {
+                                        Swal.close();  // Cierra el modal cuando se detecta una tecla
+                                    });
+                                },
+                                willClose: () => {
+                                    // Asegúrate de desvincular el controlador de eventos cuando el modal se cierre
+                                    $(document).off('keydown');
+                                }
+                            });
                         } else {
                             $('#registerEmail').removeClass('is-invalid');
                             $('#usernameGroup').removeClass('d-none');
@@ -103,66 +114,105 @@ $(document).ready(function() {
                             animateElement('#usernameGroup input');
                         }
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Error checking email!'
-                          });
+                            text: 'Error checking email!',
+                            didOpen: () => {
+                                // Accede directamente al botón de confirmación y aplica el foco
+                                Swal.getConfirmButton().focus();
+        
+                                // Agrega un controlador de eventos para escuchar cualquier pulsación de tecla
+                                $(document).on('keydown', function (e) {
+                                    Swal.close();  // Cierra el modal cuando se detecta una tecla
+                                });
+                            },
+                            willClose: () => {
+                                // Asegúrate de desvincular el controlador de eventos cuando el modal se cierre
+                                $(document).off('keydown');
+                            }
+                        });
                     }
                 });
             }
         }
     });
 
-    $('#username').on('keypress', function(e) {
+    $('#username').on('keypress', function (e) {
         if (e.which == 13) {
             e.preventDefault();
-    
+
             var username = $(this).val();
             if (username) {
                 $.ajax({
                     url: 'http://52.3.170.212:8080/api/validName',
                     type: 'POST',
                     data: { username: username },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.exists) {
                             $('#username').addClass('is-invalid');
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Oops...',
-                                text: 'Username already exists!'
-                              });
+                                text: 'Username already exists!',
+                                didOpen: () => {
+                                    // Accede directamente al botón de confirmación y aplica el foco
+                                    Swal.getConfirmButton().focus();
+            
+                                    // Agrega un controlador de eventos para escuchar cualquier pulsación de tecla
+                                    $(document).on('keydown', function (e) {
+                                        Swal.close();  // Cierra el modal cuando se detecta una tecla
+                                    });
+                                },
+                                willClose: () => {
+                                    // Asegúrate de desvincular el controlador de eventos cuando el modal se cierre
+                                    $(document).off('keydown');
+                                }
+                            });
                         } else {
                             $('#username').removeClass('is-invalid');
                             $('#passwordGroup').removeClass('d-none');
                             $('#passwordGroup input').focus();
                             animateElement('#passwordGroup input');
-                            
+
                         }
                     },
-                    error: function() {
+                    error: function () {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
-                            text: 'Error checking username!'
-                          });
+                            text: 'Error checking username!',
+                            didOpen: () => {
+                                // Accede directamente al botón de confirmación y aplica el foco
+                                Swal.getConfirmButton().focus();
+        
+                                // Agrega un controlador de eventos para escuchar cualquier pulsación de tecla
+                                $(document).on('keydown', function (e) {
+                                    Swal.close();  // Cierra el modal cuando se detecta una tecla
+                                });
+                            },
+                            willClose: () => {
+                                // Asegúrate de desvincular el controlador de eventos cuando el modal se cierre
+                                $(document).off('keydown');
+                            }
+                        });
                     }
                 });
             }
         }
     });
 
-    $('#registerEmail, #username').on('input', function() {
+    $('#registerEmail, #username').on('input', function () {
         if (this.id === 'registerEmail') {
             $('#usernameGroup, #passwordGroup, #confirmPasswordGroup, #btnRegister').addClass('d-none');
         } else if (this.id === 'username') {
             $('#passwordGroup, #confirmPasswordGroup, #btnRegister').addClass('d-none');
         }
     });
-    
-    
-    $('#registerPassword').on('keypress', function(e) {
+
+
+    $('#registerPassword').on('keypress', function (e) {
         if (e.which == 13) {  // Presionar 'Enter'
             e.preventDefault();  // Prevenir cualquier acción predeterminada
             var password = $(this).val();
@@ -176,13 +226,14 @@ $(document).ready(function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Your password must include at least one number, one uppercase letter, and be at least 6 characters long.'
-                  });
+                    text: 'Your password must include at least one number, one uppercase letter, and be at least 6 characters long.',
+                    focusConfirm: true
+                });
             }
         }
     });
 
-    $('#confirmPassword').on('keypress', function(e) {
+    $('#confirmPassword').on('keypress', function (e) {
         if (e.which == 13) {  // Presionar 'Enter'
             e.preventDefault();
             var confirmPassword = $(this).val();
@@ -195,15 +246,28 @@ $(document).ready(function() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Passwords do not match.'
-                  });
+                    text: 'Passwords do not match.',
+                    didOpen: () => {
+                        // Accede directamente al botón de confirmación y aplica el foco
+                        Swal.getConfirmButton().focus();
+
+                        // Agrega un controlador de eventos para escuchar cualquier pulsación de tecla
+                        $(document).on('keydown', function (e) {
+                            Swal.close();  // Cierra el modal cuando se detecta una tecla
+                        });
+                    },
+                    willClose: () => {
+                        // Asegúrate de desvincular el controlador de eventos cuando el modal se cierre
+                        $(document).off('keydown');
+                    }
+                });
             }
         }
     });
-    
+
 });
 
-$('#btnRegister button').click(function(e) {
+$('#btnRegister button').click(function (e) {
     e.preventDefault();
     var email = $('#registerEmail').val();
     var username = $('#username').val();
@@ -227,12 +291,12 @@ $('#btnRegister button').click(function(e) {
             achievements: [],
             settings: {}
         }),
-        success: function(response) {
+        success: function (response) {
             // Suponiendo que el servidor también autentica al usuario y devuelve un token
             localStorage.setItem('token', response.token);  // Guardar el token en localStorage
             window.location.reload();  // Redireccionar a una página segura
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             console.error('Registration failed:', xhr.responseText);
             alert(xhr.responseText);  // Mostrar error al usuario
         }
@@ -242,7 +306,7 @@ $('#btnRegister button').click(function(e) {
 
 function validateForm() {
     var isValid = true;
-    $('.form-control').each(function() {
+    $('.form-control').each(function () {
         if ($(this).is(':visible') && !$(this).val()) isValid = false;
     });
     return isValid;
@@ -272,12 +336,12 @@ function animateElement(selector) {
         boxShadow: ['0px 0px 0px rgba(0,0,0,0)', '10px 15px 25px rgba(0,0,0,0.5)'], // Anima la sombra
         duration: 1200,
         easing: 'easeOutExpo',
-        update: function(anim) {
+        update: function (anim) {
             var progress = Math.round(anim.progress);
             $(selector).css('bakground-color', `rgba(255, ${progress * 2.55}, 0, 1)`);  // Cambia de negro a rojo brillante según el progreso
         }
         ,
-        complete: function(anim) {
+        complete: function (anim) {
             // Esto se ejecuta después de completar la animación
             // Útil para desencadenar otras acciones después
         }

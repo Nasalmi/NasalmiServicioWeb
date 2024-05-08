@@ -60,3 +60,6 @@
     background-color: #444;
     border-radius: 10px;
 }
+.d-none{
+    display: none !important;
+}

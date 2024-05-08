@@ -10,18 +10,18 @@ $(document).ready(function () {
         dictDefaultMessage: "Click here and select your image",
         acceptedFiles: "image/*",
         previewTemplate: document.querySelector('#preview-template').innerHTML,
-    
+
         // Eventos
-        init: function() {
-            this.on("addedfile", function(file) {
+        init: function () {
+            this.on("addedfile", function (file) {
                 profileImage = file;
                 if (this.files.length > 1) {
                     this.removeFile(this.files[0]);
-                    
+
                 }
                 document.getElementById('profileImage').value = file.name;
             });
-            this.on("removedfile", function(file) {
+            this.on("removedfile", function (file) {
                 document.getElementById('profileImage').value = '';
             });
         },
@@ -31,14 +31,14 @@ $(document).ready(function () {
     $('#toggleUserInfo').click(function () {
         if ($(this).text() == "Modify My Info") {
             // Hacer una llamada AJAX para obtener los datos del usuario
-       
+
             $.ajax({
                 url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
                 type: 'GET',
                 success: function (response) {
                     // Reemplazar el contenido del div 'userStats' con el formulario
                     $('#toggleUserInfo').text("Hide User Info");
-                    $('.userStats').fadeOut('slow', function() {
+                    $('.userStats').fadeOut('slow', function () {
                         $('.userModify').fadeIn('slow');
                     });
                     fecha = new Date(response.birth_date).toISOString().split('T')[0];
@@ -54,59 +54,85 @@ $(document).ready(function () {
             });
         } else {
             $('#toggleUserInfo').text("Modify My Info");
-            $('.userModify').fadeOut('slow', function() {
+            $('.userModify').fadeOut('slow', function () {
                 $('.userStats').fadeIn('slow');
             });
         }
     });
 
-    $(document).on('click', '#updateUserInfo', function() {
+    $(document).on('click', '#updateUserInfo', function () {
         //var parametros = $('#userInfoForm').serialize(); // Serializa los datos del formulario
         var formData = new FormData();
 
         formData.append('profile_image', profileImage);
+        if (profileImage) {
+            $.ajax({
+                url: 'http://52.3.170.212:8080/api/upload',
+                type: 'POST',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log('Ruta de la imagen subida:', response.filePath);
+
+                    // Ahora que la imagen se ha subido con éxito, podemos enviar los otros datos del formulario
+
+                    var parametros = {
+                        birth_date: $('#userInfoForm input[name="dateOfBirth"]').val(),
+                        country: $('#userInfoForm input[name="country"]').val(),
+                        profile_image: response.filePath, // Utilizamos la ruta de la imagen subida
+                        nickname: $('#userInfoForm input[name="alias"]').val(),
+                        desc: $('#userInfoForm textarea[name="description"]').val()
+                    };
+
+                    // Realizar la solicitud AJAX para actualizar la información del usuario
+                    $.ajax({
+                        url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
+                        type: 'PUT',
+                        data: parametros,
+                        success: function (response) {
+                            alert('User info updated successfully!');
+                            window.location.reload();
+
+                        },
+                        error: function (error) {
+                            console.error('Error updating user info:', error);
+                        }
+                    });
+                },
+                error: function (error) {
+                    console.error('Error al subir la imagen:', error);
+                }
+            });
+        } else {
+            var parametros = {
+                birth_date: $('#userInfoForm input[name="dateOfBirth"]').val(),
+                country: $('#userInfoForm input[name="country"]').val(),
+                nickname: $('#userInfoForm input[name="alias"]').val(),
+                desc: $('#userInfoForm textarea[name="description"]').val()
+            };
+
+            // Realizar la solicitud AJAX para actualizar la información del usuario
+            $.ajax({
+                url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
+                type: 'PUT',
+                data: parametros,
+                success: function (response) {
+                    alert('User info updated successfully!');
+                    window.location.reload();
+
+                },
+                error: function (error) {
+                    console.error('Error updating user info:', error);
+                }
+            });
+        }
 
         // Crear una solicitud AJAX para cargar la imagen
-        $.ajax({
-            url: 'http://52.3.170.212:8080/api/upload',
-            type: 'POST',
-            data: formData,
-            contentType: false,
-            processData: false,
-            success: function(response) {
-                console.log('Ruta de la imagen subida:', response.filePath);
-    
-                // Ahora que la imagen se ha subido con éxito, podemos enviar los otros datos del formulario
-                var parametros = {
-                    birth_date: $('#userInfoForm input[name="dateOfBirth"]').val(),
-                    country: $('#userInfoForm input[name="country"]').val(),
-                    profile_image: response.filePath, // Utilizamos la ruta de la imagen subida
-                    nickname: $('#userInfoForm input[name="alias"]').val(),
-                    desc: $('#userInfoForm textarea[name="description"]').val()
-                };
-    
-                // Realizar la solicitud AJAX para actualizar la información del usuario
-                $.ajax({
-                    url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
-                    type: 'PUT',
-                    data: parametros,
-                    success: function(response) {
-                        alert('User info updated successfully!');
-                        window.location.reload();
 
-                    },
-                    error: function(error) {
-                        console.error('Error updating user info:', error);
-                    }
-                });
-            },
-            error: function(error) {
-                console.error('Error al subir la imagen:', error);
-            }
-        });
     });
-    
-    $(document).on('click', '#deleteAccount', function() {
+
+    $(document).on('click', '#deleteAccount', function () {
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -115,29 +141,29 @@ $(document).ready(function () {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes, delete it!'
-          }).then((result) => {
+        }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
                     url: 'http://52.3.170.212:8080/api/users/' + localStorage.getItem("userId"),
                     type: 'DELETE',
-                    success: function(response) {
+                    success: function (response) {
                         Swal.fire(
                             'Deleted!',
                             'Your account has been deleted.',
                             'success'
-                          );
-                          localStorage.removeItem('token');
+                        );
+                        localStorage.removeItem('token');
                         window.location.href = '/index.html'; // Redirect to login page or home page
                     },
-                    error: function(error) {
+                    error: function (error) {
                         console.error('Failed to delete account:', error);
                     }
                 });
             }
-          });
+        });
     });
 
-    $(".userGames").on("click", ".delete-game-btn", function() {
+    $(".userGames").on("click", ".delete-game-btn", function () {
         var gameId = $(this).closest('.list-group-item').data('game-id');
         var gameItem = $(this).closest('.list-group-item');
         Swal.fire({
@@ -151,14 +177,14 @@ $(document).ready(function () {
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: 'http://52.3.170.212:8080/api/games/' + gameId, 
+                    url: 'http://52.3.170.212:8080/api/games/' + gameId,
                     type: 'DELETE',
-                    success: function(response) {
-                    // Cambiar el estilo del elemento eliminado
-                    gameItem.css('opacity', '0.5');
-                    gameItem.find('.delete-game-btn').remove();
+                    success: function (response) {
+                        // Cambiar el estilo del elemento eliminado
+                        gameItem.css('opacity', '0.5');
+                        gameItem.find('.delete-game-btn').remove();
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.error(error);
                     }
                 });
@@ -254,12 +280,12 @@ function loadUserInfo(userId) {
             $(".userAchievements").empty();
             response.achievements.forEach(achievement => {
                 var html = '<div class="d-flex justify-content-between align-items-center my-2">' +
-                            '<div>' + // Añadido un div para agrupar el img y el primer span
-                                '<img src="' + achievement.icon + '" alt="A" class="img-fluid mr-2">' +
-                                '<span>' + achievement.name + '</span>' +
-                            '</div>' +
-                            '<span>' + achievement.points + '</span>' +
-                        '</div>';
+                    '<div>' + // Añadido un div para agrupar el img y el primer span
+                    '<img src="' + achievement.icon + '" alt="A" class="img-fluid mr-2">' +
+                    '<span>' + achievement.name + '</span>' +
+                    '</div>' +
+                    '<span>' + achievement.points + '</span>' +
+                    '</div>';
 
 
                 $(".userAchievements").append(html);
@@ -278,24 +304,24 @@ function loadUserGames(userId) {
             $(".userGames").empty();
             var contador = 0;
             response.forEach((game, index) => {
-                var timeSpent = Math.round(game.time_spent); 
-                var formattedDate = new Date(game.date).toLocaleDateString('es-ES'); 
-            
+                var timeSpent = Math.round(game.time_spent);
+                var formattedDate = new Date(game.date).toLocaleDateString('es-ES');
+
                 var gameId = 'game_' + index;
                 var nombrePartida = 'Game Number ' + (index + 1);
-            
+
                 var html = '<div class="list-group-item list-group-item-action bg-dark text-light my-2 d-flex justify-content-between align-items-center" id="' + gameId + '" data-game-id="' + game._id + '">' +
-                '<span class="game-id d-none">' + game._id + '</span>' + // Agregar un span oculto con la ID del juego
-                nombrePartida + " - Level " + game.level + ", Wave " + game.wave + " " +
-                '<small>' + formattedDate + '</small>' +
-                '<span class="time-spent"> Time Spent: ' + timeSpent + ' seconds</span>' +
-                '<button class="delete-game-btn btn btn-danger btn-sm">X</button>' +
-                '</div>';
-            
+                    '<span class="game-id d-none">' + game._id + '</span>' + // Agregar un span oculto con la ID del juego
+                    nombrePartida + " - Level " + game.level + ", Wave " + game.wave + " " +
+                    '<small>' + formattedDate + '</small>' +
+                    '<span class="time-spent"> Time Spent: ' + timeSpent + ' seconds</span>' +
+                    '<button class="delete-game-btn btn btn-danger btn-sm">X</button>' +
+                    '</div>';
+
                 // Agregar el juego al contenedor de juegos
                 $(".userGames").append(html);
             });
-            
+
         }
     });
 }
